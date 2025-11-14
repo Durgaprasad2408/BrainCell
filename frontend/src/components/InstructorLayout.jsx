@@ -42,14 +42,17 @@ const InstructorLayout = () => {
 
   return (
     <div className={`min-h-screen ${isDark ? 'bg-gray-900' : 'bg-gray-50'} transition-colors duration-300`}>
-      <button
-        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-        className={`fixed top-4 left-4 z-60 lg:hidden p-2 rounded-lg ${
-          isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
-        } shadow-lg`}
-      >
-        {isSidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-      </button>
+      {/* Mobile Menu Button (Open Sidebar) */}
+      {!isSidebarOpen && (
+        <button
+          onClick={() => setIsSidebarOpen(true)}
+          className={`fixed top-4 left-4 z-60 lg:hidden p-2 rounded-lg ${
+            isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
+          } shadow-lg`}
+        >
+          <Menu className="w-6 h-6" />
+        </button>
+      )}
 
       <aside
         className={`fixed top-0 left-0 h-full w-64 ${
@@ -60,9 +63,19 @@ const InstructorLayout = () => {
       >
         <div className="flex flex-col h-full">
           <div className={`p-6 border-b ${isDark ? 'border-gray-700' : 'border-gray-200'}`}>
-            <h1 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
-              {user?.name || 'Instructor Panel'}
-            </h1>
+            <div className="flex justify-between items-start">
+              <h1 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                {user?.name || 'Instructor Panel'}
+              </h1>
+              <button
+                onClick={() => setIsSidebarOpen(false)}
+                className={`lg:hidden p-2 rounded-lg ${
+                  isDark ? 'text-white hover:bg-gray-700' : 'text-gray-900 hover:bg-gray-100'
+                }`}
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
             <p className={`text-sm mt-1 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
               Content Management
             </p>

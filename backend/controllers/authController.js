@@ -3,6 +3,8 @@ import { validationResult } from 'express-validator';
 import User from '../models/User.js';
 import generateDiceBearAvatar from '../utils/avatarGenerator.js';
 
+const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRE,
@@ -176,10 +178,10 @@ export const updateProfile = async (req, res) => {
         });
       }
 
-      if (newPassword.length < 6) {
+      if (!strongPasswordRegex.test(newPassword)) {
         return res.status(400).json({
           success: false,
-          message: 'New password must be at least 6 characters',
+          message: 'New password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character',
         });
       }
 
@@ -187,6 +189,12 @@ export const updateProfile = async (req, res) => {
     }
 
     if (email && email !== user.email) {
+      if (!email.endsWith('@gmrit.edu.in')) {
+        return res.status(400).json({
+          success: false,
+          message: 'Only emails with @gmrit.edu.in domain are allowed',
+        });
+      }
       const emailExists = await User.findOne({ email });
       if (emailExists) {
         return res.status(400).json({
@@ -309,6 +317,12 @@ export const updateUser = async (req, res) => {
     }
 
     if (email && email !== user.email) {
+      if (!email.endsWith('@gmrit.edu.in')) {
+        return res.status(400).json({
+          success: false,
+          message: 'Only emails with @gmrit.edu.in domain are allowed',
+        });
+      }
       const emailExists = await User.findOne({ email });
       if (emailExists) {
         return res.status(400).json({

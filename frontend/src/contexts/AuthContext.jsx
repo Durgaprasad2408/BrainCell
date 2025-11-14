@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       return {
         success: false,
-        message: error.response?.data?.message || 'Registration failed',
+        message: error.response?.data?.errors?.[0]?.msg || error.response?.data?.message || 'Registration failed',
       };
     }
   };

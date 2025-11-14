@@ -43,7 +43,7 @@ const Home = () => {
         </p>
   
         <div className="flex items-center gap-3 mt-8 text-sm">
-          <button className="flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 transition rounded-full">
+          <button onClick={() => navigate('/login')} className="flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 transition rounded-full">
             <span>Start Learning</span>
             <svg
               width="24"

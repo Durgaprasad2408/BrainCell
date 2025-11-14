@@ -41,8 +41,9 @@ const Register = () => {
       return;
     }
 
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters');
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(password)) {
+      setError('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character');
       return;
     }
 
@@ -169,7 +170,7 @@ const Register = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  minLength={6}
+                  minLength={8}
                   // ***** ADDED AUTOFILL STYLE & UPDATED LIGHT THEME STYLES *****
                   style={autofillOverrideStyle}
                   className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:border-transparent transition-all pr-12 ${
@@ -177,7 +178,7 @@ const Register = () => {
                       ? 'border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:ring-blue-400'
                       : 'border-black bg-white text-black placeholder-gray-500 focus:ring-blue-500' // black border, white bg, black text
                   }`}
-                  placeholder="At least 6 characters"
+                  placeholder="At least 8 characters with uppercase, lowercase, number, special"
                 />
                 {/* Apply isDark logic */}
                 <button
