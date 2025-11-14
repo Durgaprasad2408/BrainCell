@@ -44,7 +44,7 @@ const InstructorLayout = () => {
     <div className={`min-h-screen ${isDark ? 'bg-gray-900' : 'bg-gray-50'} transition-colors duration-300`}>
       <button
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-        className={`fixed top-4 left-4 z-50 lg:hidden p-2 rounded-lg ${
+        className={`fixed top-4 left-4 z-60 lg:hidden p-2 rounded-lg ${
           isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
         } shadow-lg`}
       >
@@ -54,7 +54,7 @@ const InstructorLayout = () => {
       <aside
         className={`fixed top-0 left-0 h-full w-64 ${
           isDark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
-        } border-r transition-transform duration-300 z-40 ${
+        } border-r transition-transform duration-300 z-50 ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         } lg:translate-x-0`}
       >
@@ -133,13 +133,13 @@ const InstructorLayout = () => {
 
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-30 lg:hidden"
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
 
       <main className="lg:ml-64 min-h-screen">
-        <div className="p-4 lg:p-8">
+        <div className="px-4 pb-4 pt-16 lg:p-8">
           <Outlet />
         </div>
       </main>
