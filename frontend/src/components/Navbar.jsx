@@ -166,12 +166,12 @@ const Navbar = () => {
 
             {/* Mobile Menu */}
             <div
-                className={`fixed top-0 left-0 w-full h-screen bg-white text-base flex flex-col md:hidden items-center justify-center gap-6 font-medium text-gray-800 transition-all duration-500 z-40 ${
+                className={`fixed top-0 left-0 w-full h-screen ${isDark ? 'bg-gray-900 text-white' : 'bg-white text-gray-800'} text-base flex flex-col md:hidden items-center justify-center gap-6 font-medium transition-all duration-500 z-40 ${
                     isMenuOpen ? 'translate-x-0' : '-translate-x-full'
                 }`}
             >
                 <button
-                    className="absolute top-4 right-4 text-gray-600"
+                    className={`absolute top-4 right-4 transition-colors ${isDark ? 'text-white hover:text-gray-300' : 'text-gray-600 hover:text-gray-800'}`}
                     onClick={() => setIsMenuOpen(false)}
                 >
                     <svg
@@ -203,7 +203,11 @@ const Navbar = () => {
                             toggleTheme();
                             setIsMenuOpen(false);
                         }}
-                        className="flex items-center gap-2 px-6 py-2 border border-gray-300 rounded-full transition-all hover:bg-gray-100"
+                        className={`flex items-center gap-2 px-6 py-2 rounded-full transition-all ${
+                            isDark
+                                ? 'border border-gray-700 hover:bg-gray-800'
+                                : 'border border-gray-300 hover:bg-gray-100'
+                        }`}
                     >
                         {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                         {isDark ? 'Light' : 'Dark'} Mode

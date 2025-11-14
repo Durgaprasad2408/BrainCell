@@ -151,7 +151,11 @@ const StudentNavbar = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden fixed top-16 left-0 w-full bg-white dark:bg-gray-900 shadow-lg z-40 border-t border-gray-200 dark:border-gray-700">
+        <div className={`md:hidden fixed top-16 left-0 w-full shadow-lg z-40 border-t ${
+          isDark
+            ? 'bg-gray-900 border-gray-700'
+            : 'bg-white border-gray-200'
+        }`}>
           <div className="flex flex-col py-4">
             {navLinks.map((link, i) => (
               <Link

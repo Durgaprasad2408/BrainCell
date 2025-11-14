@@ -596,16 +596,30 @@ export const getStudentAchievements = async (req, res) => {
       ? Math.round(submissions.reduce((sum, sub) => sum + sub.score, 0) / submissions.length)
       : 0;
 
-    // Calculate streaks
+    // Get submissions for daily and weekly challenges only for streak calculation
+    const streakSubmissions = await ChallengeSubmission.find({ userId })
+      .populate('challengeId', 'category')
+      .sort({ submittedAt: -1 });
+
+    // Filter to only daily and weekly challenges
+    const filteredStreakSubmissions = streakSubmissions.filter(sub =>
+      sub.challengeId && (sub.challengeId.category === 'daily' || sub.challengeId.category === 'weekly')
+    );
+
+    // Calculate streaks (using IST timezone to match user expectations)
     const submissionsByDate = {};
-    submissions.forEach(sub => {
-      const date = sub.submittedAt.toISOString().split('T')[0];
+    filteredStreakSubmissions.forEach(sub => {
+      // Convert to IST (UTC+5:30) for consistent date grouping
+      const istTime = new Date(sub.submittedAt.getTime() + (5.5 * 60 * 60 * 1000));
+      const date = istTime.toISOString().split('T')[0];
       submissionsByDate[date] = (submissionsByDate[date] || 0) + 1;
     });
 
     const dates = Object.keys(submissionsByDate).sort().reverse();
     let currentStreak = 0;
-    const today = new Date().toISOString().split('T')[0];
+    // Get today in IST
+    const todayIST = new Date(Date.now() + (5.5 * 60 * 60 * 1000));
+    const today = todayIST.toISOString().split('T')[0];
 
     for (let i = 0; i < dates.length; i++) {
       const date = dates[i];
@@ -700,16 +714,30 @@ export const getStudentStats = async (req, res) => {
       ? Math.round(submissions.reduce((sum, sub) => sum + (sub.correctAnswers / sub.totalQuestions) * 100, 0) / submissions.length)
       : 0;
 
-    // Get current streak (consecutive days with submissions)
+    // Get submissions for daily and weekly challenges only for streak calculation
+    const streakSubmissions = await ChallengeSubmission.find({ userId })
+      .populate('challengeId', 'category')
+      .sort({ submittedAt: -1 });
+
+    // Filter to only daily and weekly challenges
+    const filteredStreakSubmissions = streakSubmissions.filter(sub =>
+      sub.challengeId && (sub.challengeId.category === 'daily' || sub.challengeId.category === 'weekly')
+    );
+
+    // Get current streak (consecutive days with daily/weekly submissions)
     const submissionsByDate = {};
-    submissions.forEach(sub => {
-      const date = sub.submittedAt.toISOString().split('T')[0];
+    filteredStreakSubmissions.forEach(sub => {
+      // Convert to IST (UTC+5:30) for consistent date grouping
+      const istTime = new Date(sub.submittedAt.getTime() + (5.5 * 60 * 60 * 1000));
+      const date = istTime.toISOString().split('T')[0];
       submissionsByDate[date] = (submissionsByDate[date] || 0) + 1;
     });
 
     const dates = Object.keys(submissionsByDate).sort().reverse();
     let currentStreak = 0;
-    const today = new Date().toISOString().split('T')[0];
+    // Get today in IST
+    const todayIST = new Date(Date.now() + (5.5 * 60 * 60 * 1000));
+    const today = todayIST.toISOString().split('T')[0];
 
     for (let i = 0; i < dates.length; i++) {
       const date = dates[i];
