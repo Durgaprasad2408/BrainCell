@@ -1,7 +1,25 @@
 import Subject from '../models/Subject.js';
 import cloudinary from '../config/cloudinary.js';
-import fs from 'fs';
-import path from 'path';
+import { Readable } from 'stream';
+
+const uploadToCloudinary = (buffer, folder) => {
+  return new Promise((resolve, reject) => {
+    const uploadStream = cloudinary.uploader.upload_stream(
+      {
+        folder: folder,
+        public_id: `subject_${Date.now()}`,
+        resource_type: 'image'
+      },
+      (error, result) => {
+        if (error) reject(error);
+        else resolve(result);
+      }
+    );
+
+    const readableStream = Readable.from(buffer);
+    readableStream.pipe(uploadStream);
+  });
+};
 
 export const createSubject = async (req, res) => {
   try {
@@ -24,16 +42,9 @@ export const createSubject = async (req, res) => {
     if (req.file) {
       console.log('Uploading file to Cloudinary...');
       // Upload to Cloudinary
-      const result = await cloudinary.uploader.upload(req.file.path, {
-        folder: 'subjects',
-        public_id: `subject_${Date.now()}`,
-        resource_type: 'image'
-      });
+      const result = await uploadToCloudinary(req.file.buffer, 'subjects');
       imageUrl = result.secure_url;
       console.log('Cloudinary upload successful:', imageUrl);
-
-      // Remove temp file
-      fs.unlinkSync(req.file.path);
     }
 
     const subject = await Subject.create({
@@ -52,10 +63,6 @@ export const createSubject = async (req, res) => {
     });
   } catch (error) {
     console.error('Create subject error:', error);
-    // Clean up temp file if upload failed
-    if (req.file && fs.existsSync(req.file.path)) {
-      fs.unlinkSync(req.file.path);
-    }
     res.status(500).json({
       success: false,
       message: 'Failed to create subject: ' + error.message
@@ -142,15 +149,8 @@ export const updateSubject = async (req, res) => {
     let imageUrl = subject.image; // Keep existing image by default
     if (req.file) {
       // Upload new image to Cloudinary
-      const result = await cloudinary.uploader.upload(req.file.path, {
-        folder: 'subjects',
-        public_id: `subject_${Date.now()}`,
-        resource_type: 'image'
-      });
+      const result = await uploadToCloudinary(req.file.buffer, 'subjects');
       imageUrl = result.secure_url;
-
-      // Remove temp file
-      fs.unlinkSync(req.file.path);
     }
 
     if (name) subject.name = name;
@@ -167,10 +167,6 @@ export const updateSubject = async (req, res) => {
     });
   } catch (error) {
     console.error('Update subject error:', error);
-    // Clean up temp file if upload failed
-    if (req.file && fs.existsSync(req.file.path)) {
-      fs.unlinkSync(req.file.path);
-    }
     res.status(500).json({
       success: false,
       message: 'Failed to update subject'
