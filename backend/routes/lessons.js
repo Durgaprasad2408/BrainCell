@@ -10,6 +10,7 @@ import {
   updateLessonOrder,
   getInstructorStats,
   getLessonStats,
+  getLessonMetrics,
   markLessonComplete
 } from '../controllers/lessonController.js';
 import { protect, authorize } from '../middleware/auth.js';
@@ -18,10 +19,11 @@ import upload from '../middleware/upload.js';
 const router = express.Router();
 
 router.get('/', getAllLessons);
-router.get('/:id', getLessonById);
+router.get('/metrics/:id', protect, authorize('admin', 'instructor'), getLessonMetrics);
 router.get('/stats/instructor', protect, authorize('instructor'), getInstructorStats);
-router.post('/complete', protect, markLessonComplete);
 router.get('/stats', getLessonStats);
+router.post('/complete', protect, markLessonComplete);
+router.get('/:id', getLessonById);
 
 router.post(
   '/',

@@ -3,6 +3,7 @@ import { useTheme } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/AuthContext';
 import axios from 'axios';
 import { createLesson, getAllLessons, updateLesson, deleteLesson, uploadCardImages, uploadVideo } from '../../api/lessonService';
+import { useNavigate } from 'react-router-dom';
 import Papa from 'papaparse';
 import {
   Search,
@@ -24,6 +25,7 @@ import {
 const LearningContentManagement = () => {
   const { isDark } = useTheme();
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('');
   const [selectedModule, setSelectedModule] = useState('all');
@@ -796,19 +798,16 @@ const LearningContentManagement = () => {
                         <td className="px-6 py-4">
                           <div className={`text-sm ${isDark ? 'text-gray-300' : 'text-gray-900'}`}>
                             <div className="mb-1">{lesson.completions} completions</div>
-                            <div className="flex items-center gap-1">
-                              <span className="text-yellow-500">★</span>
-                              <span className="text-xs">{lesson.rating}/5.0</span>
-                            </div>
                           </div>
                         </td>
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-2">
                             <button
+                              onClick={() => navigate(`/instructor/learning/metrics/${lesson._id}`)}
                               className={`p-2 rounded-lg ${
                                 isDark ? 'hover:bg-gray-700 text-gray-400' : 'hover:bg-gray-100 text-gray-600'
                               } transition-colors`}
-                              title="View Content"
+                              title="View Metrics"
                             >
                               <Eye className="w-4 h-4" />
                             </button>

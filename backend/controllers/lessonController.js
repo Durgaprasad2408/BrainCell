@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import Lesson from '../models/Lesson.js';
 import LessonProgress from '../models/LessonProgress.js';
+import User from '../models/User.js';
 import cloudinary from '../config/cloudinary.js';
 import { Readable } from 'stream';
 
@@ -555,6 +556,106 @@ export const getLessonStats = async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Failed to fetch lesson stats',
+      error: error.message
+    });
+  }
+};
+
+export const getLessonMetrics = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid lesson ID format'
+      });
+    }
+
+    // Get lesson details
+    const lesson = await Lesson.findById(id).populate('createdBy', 'name email');
+    if (!lesson) {
+      return res.status(404).json({
+        success: false,
+        message: 'Lesson not found'
+      });
+    }
+
+    // Get total students count
+    const totalStudents = await User.countDocuments({ role: 'user' });
+
+    // Get completion data
+    const completionData = await LessonProgress.find({ lesson: id })
+      .populate('user', 'name email')
+      .sort({ completedAt: -1 });
+
+    const totalCompletions = completionData.length;
+    const completionRate = totalStudents > 0 ? (totalCompletions / totalStudents) * 100 : 0;
+
+    // Get recent completions (last 10)
+    const recentCompletions = completionData.slice(0, 10).map(progress => ({
+      user: progress.user.name,
+      email: progress.user.email,
+      completedAt: progress.completedAt
+    }));
+
+    // Calculate completion trend (completions per month for last 6 months)
+    const sixMonthsAgo = new Date();
+    sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+
+    const completionTrend = await LessonProgress.aggregate([
+      { $match: { lesson: id, completedAt: { $gte: sixMonthsAgo } } },
+      {
+        $group: {
+          _id: {
+            year: { $year: '$completedAt' },
+            month: { $month: '$completedAt' }
+          },
+          count: { $sum: 1 }
+        }
+      },
+      { $sort: { '_id.year': 1, '_id.month': 1 } }
+    ]);
+
+    // Format trend data
+    const trendData = completionTrend.map(item => ({
+      month: `${item._id.year}-${String(item._id.month).padStart(2, '0')}`,
+      completions: item.count
+    }));
+
+    res.status(200).json({
+      success: true,
+      data: {
+        lesson: {
+          id: lesson._id,
+          title: lesson.title,
+          subject: lesson.subject,
+          module: lesson.module,
+          type: lesson.type,
+          duration: lesson.duration,
+          status: lesson.status,
+          rating: lesson.rating,
+          createdBy: lesson.createdBy,
+          createdAt: lesson.createdAt,
+          contentCards: lesson.contentCards,
+          quizQuestions: lesson.quizQuestions,
+          videoContent: lesson.videoContent
+        },
+        metrics: {
+          totalCompletions,
+          totalStudents,
+          completionRate: Math.round(completionRate * 100) / 100, // Round to 2 decimal places
+          averageRating: lesson.rating || 0,
+          recentCompletions,
+          completionTrend: trendData
+        }
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching lesson metrics:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch lesson metrics',
       error: error.message
     });
   }

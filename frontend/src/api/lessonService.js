@@ -154,3 +154,15 @@ export const markLessonComplete = async (lessonId) => {
     throw new Error(error.response?.data?.message || error.message || 'Failed to mark lesson complete');
   }
 };
+
+export const getLessonMetrics = async (lessonId) => {
+  try {
+    const response = await axios.get(`${API_URL}/lessons/metrics/${lessonId}`, {
+      headers: getAuthHeader()
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching lesson metrics:', error);
+    throw new Error(error.response?.data?.message || error.message || 'Failed to fetch lesson metrics');
+  }
+};
