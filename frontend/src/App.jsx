@@ -44,6 +44,7 @@ import ChallengeManagement from './pages/admin/ChallengeManagement';
 import ChallengeMetrics from './pages/admin/ChallengeMetrics';
 import LibraryManagement from './pages/admin/LibraryManagement';
 import LearningContentManagement from './pages/admin/LearningContentManagement';
+import SubjectUsersData from './pages/admin/SubjectUsersData';
 import LessonMetrics from './pages/admin/LessonMetrics';
 import Statistics from './pages/admin/Statistics';
 import Profile from './pages/Profile';
@@ -52,6 +53,7 @@ import InstructorDashboard from './pages/Instructor/InstructorDashboard';
 import InstructorChallenges from './pages/Instructor/ChallengeManagement';
 import InstructorLibrary from './pages/Instructor/LibraryManagement';
 import InstructorLearning from './pages/Instructor/LearningContentManagement';
+import InstructorSubjectUsersData from './pages/Instructor/SubjectUsersData';
 import InstructorQueries from './pages/Instructor/Queries';
 import AdminQueries from './pages/admin/Queries';
 import Contact from './pages/Contact';
@@ -135,6 +137,7 @@ const AppContent = () => {
           <Route path="challenges/metrics/:challengeId" element={<ChallengeMetrics />} />
           <Route path="library" element={<LibraryManagement />} />
           <Route path="learning" element={<LearningContentManagement />} />
+          <Route path="learning/users/:subjectName" element={<SubjectUsersData />} />
           <Route path="learning/metrics/:lessonId" element={<LessonMetrics />} />
           <Route path="queries" element={<AdminQueries />} />
           <Route path="statistics" element={<Statistics />} />
@@ -151,6 +154,7 @@ const AppContent = () => {
           <Route path="challenges/metrics/:challengeId" element={<ChallengeMetrics />} />
           <Route path="library" element={<InstructorLibrary />} />
           <Route path="learning" element={<InstructorLearning />} />
+          <Route path="learning/users/:subjectName" element={<InstructorSubjectUsersData />} />
           <Route path="learning/metrics/:lessonId" element={<LessonMetrics />} />
           <Route path="queries" element={<InstructorQueries />} />
           <Route path="profile" element={<Profile />} />

@@ -111,3 +111,15 @@ export const checkEnrollment = async (subjectId) => {
     throw error;
   }
 };
+
+export const getSubjectUsersData = async (subjectName) => {
+  try {
+    const response = await axios.get(`${API_URL}/subjects/users/${encodeURIComponent(subjectName)}`, {
+      headers: getAuthHeader()
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching subject users data:', error);
+    throw error;
+  }
+};

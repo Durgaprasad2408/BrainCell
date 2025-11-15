@@ -306,6 +306,82 @@ export const checkEnrollment = async (req, res) => {
   }
 };
 
+export const getSubjectUsersData = async (req, res) => {
+  try {
+    const { subjectName } = req.params;
+
+    // Find the subject to get its ID
+    const subject = await Subject.findOne({ name: subjectName, isActive: true });
+    if (!subject) {
+      return res.status(404).json({
+        success: false,
+        message: 'Subject not found'
+      });
+    }
+
+    const User = (await import('../models/User.js')).default;
+    const Lesson = (await import('../models/Lesson.js')).default;
+    const LessonProgress = (await import('../models/LessonProgress.js')).default;
+
+    // Get all lessons in this subject
+    const lessons = await Lesson.find({ subject: subjectName });
+    const totalLessons = lessons.length;
+
+    // Get users enrolled in this subject (either in subjects array or enrolledSubjects)
+    const enrolledUsers = await User.find({
+      $or: [
+        { subjects: subjectName },
+        { 'enrolledSubjects.subjectId': subject._id }
+      ]
+    }).select('name email role enrolledSubjects createdAt');
+
+    // Filter to only include students (role: 'user'), exclude instructors and admins
+    const studentUsers = enrolledUsers.filter(user => user.role === 'user');
+
+    // For each student user, calculate completed lessons
+    const usersData = await Promise.all(
+      studentUsers.map(async (user) => {
+        const completedLessons = await LessonProgress.countDocuments({
+          user: user._id,
+          lesson: { $in: lessons.map(l => l._id) },
+          completed: true
+        });
+
+        return {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          enrolledAt: user.enrolledSubjects.find(es => es.subjectId.toString() === subject._id.toString())?.enrolledAt || user.createdAt,
+          totalLessons,
+          completedLessons,
+          completionPercentage: totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0
+        };
+      })
+    );
+
+    res.status(200).json({
+      success: true,
+      data: {
+        subject: {
+          name: subject.name,
+          description: subject.description,
+          totalLessons,
+          totalStudents: usersData.length
+        },
+        users: usersData
+      }
+    });
+  } catch (error) {
+    console.error('Get subject users data error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch subject users data',
+      error: error.message
+    });
+  }
+};
+
 export const getSubjectChartData = async (req, res) => {
   try {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];

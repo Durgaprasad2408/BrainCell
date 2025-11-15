@@ -392,6 +392,18 @@ const LearningContentManagement = () => {
               <button
                 onClick={(e) => {
                   e.stopPropagation();
+                  navigate(`/admin/learning/users/${encodeURIComponent(subject.name)}`);
+                }}
+                className={`p-1.5 rounded-lg ${
+                  isDark ? 'bg-gray-700 hover:bg-gray-600 text-gray-300' : 'bg-white hover:bg-gray-100 text-gray-600'
+                } shadow-sm`}
+                title="View Subject Users"
+              >
+                <Eye className="w-4 h-4" />
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
                   setEditingSubject(subject);
                   setNewSubject({
                     name: subject.name,

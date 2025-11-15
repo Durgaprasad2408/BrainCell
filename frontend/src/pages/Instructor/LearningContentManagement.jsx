@@ -666,32 +666,48 @@ const LearningContentManagement = () => {
         <>
           <div className="flex gap-3 mb-6 overflow-x-auto pb-2">
             {subjects.map((subject, index) => (
-              <button
-                key={index}
-                onClick={() => setSelectedSubject(subject.name)}
-                className={`px-6 py-4 rounded-xl border transition-all whitespace-nowrap ${
-                  selectedSubject === subject.name
-                    ? isDark
-                      ? 'bg-blue-600 border-blue-500 text-white shadow-lg'
-                      : 'bg-blue-600 border-blue-500 text-white shadow-lg'
-                    : isDark
-                    ? 'bg-gray-800 border-gray-700 text-gray-300 hover:bg-gray-700'
-                    : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'
-                }`}
-              >
-                <div className="text-left">
-                  <div className={`font-semibold mb-1 ${
-                    selectedSubject === subject.name ? 'text-white' : isDark ? 'text-white' : 'text-gray-900'
-                  }`}>
-                    {subject.name}
+              <div className="relative">
+                <button
+                  key={index}
+                  onClick={() => setSelectedSubject(subject.name)}
+                  className={`px-6 py-4 rounded-xl border transition-all whitespace-nowrap w-full ${
+                    selectedSubject === subject.name
+                      ? isDark
+                        ? 'bg-blue-600 border-blue-500 text-white shadow-lg'
+                        : 'bg-blue-600 border-blue-500 text-white shadow-lg'
+                      : isDark
+                      ? 'bg-gray-800 border-gray-700 text-gray-300 hover:bg-gray-700'
+                      : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'
+                  }`}
+                >
+                  <div className="flex items-center justify-between w-full">
+                    <div className="text-left">
+                      <div className={`font-semibold mb-1 ${
+                        selectedSubject === subject.name ? 'text-white' : isDark ? 'text-white' : 'text-gray-900'
+                      }`}>
+                        {subject.name}
+                      </div>
+                      <div className={`text-xs ${
+                        selectedSubject === subject.name ? 'text-blue-100' : isDark ? 'text-gray-400' : 'text-gray-500'
+                      }`}>
+                        {subject.lessons} lessons · {subject.students} students
+                      </div>
+                    </div>
                   </div>
-                  <div className={`text-xs ${
-                    selectedSubject === subject.name ? 'text-blue-100' : isDark ? 'text-gray-400' : 'text-gray-500'
-                  }`}>
-                    {subject.lessons} lessons · {subject.students} students
-                  </div>
-                </div>
-              </button>
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/instructor/learning/users/${encodeURIComponent(subject.name)}`);
+                  }}
+                  className={`absolute top-2 right-2 p-1.5 rounded-lg ${
+                    isDark ? 'bg-gray-700 hover:bg-gray-600 text-gray-300' : 'bg-white hover:bg-gray-100 text-gray-600'
+                  } shadow-sm`}
+                  title="View Subject Users"
+                >
+                  <Eye className="w-4 h-4" />
+                </button>
+              </div>
             ))}
           </div>
 

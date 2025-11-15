@@ -8,6 +8,7 @@ import {
   enrollSubject,
   getEnrolledSubjects,
   checkEnrollment,
+  getSubjectUsersData,
   getSubjectChartData
 } from '../controllers/subjectController.js';
 import { protect, adminOnly } from '../middleware/auth.js';
@@ -17,6 +18,7 @@ const router = express.Router();
 
 router.get('/', protect, getAllSubjects);
 router.get('/chart-data', protect, adminOnly, getSubjectChartData);
+router.get('/users/:subjectName', protect, getSubjectUsersData);
 router.get('/enrolled/my-subjects', protect, getEnrolledSubjects);
 router.get('/:id', protect, getSubjectById);
 router.get('/check-enrollment/:subjectId', protect, checkEnrollment);
