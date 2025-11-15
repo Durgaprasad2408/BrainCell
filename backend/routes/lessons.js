@@ -9,7 +9,8 @@ import {
   uploadVideo,
   updateLessonOrder,
   getInstructorStats,
-  getLessonStats
+  getLessonStats,
+  markLessonComplete
 } from '../controllers/lessonController.js';
 import { protect, authorize } from '../middleware/auth.js';
 import upload from '../middleware/upload.js';
@@ -19,6 +20,7 @@ const router = express.Router();
 router.get('/', getAllLessons);
 router.get('/:id', getLessonById);
 router.get('/stats/instructor', protect, authorize('instructor'), getInstructorStats);
+router.post('/complete', protect, markLessonComplete);
 router.get('/stats', getLessonStats);
 
 router.post(

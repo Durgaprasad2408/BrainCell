@@ -138,3 +138,19 @@ export const getInstructorStats = async (period = 'all') => {
     throw error;
   }
 };
+
+export const markLessonComplete = async (lessonId) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/lessons/complete`,
+      { lessonId },
+      {
+        headers: getAuthHeader()
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Mark lesson complete error:', error);
+    throw new Error(error.response?.data?.message || error.message || 'Failed to mark lesson complete');
+  }
+};

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { ChevronDown, ChevronRight, ChevronLeft, Lock, CheckCircle, Play, BookOpen, HelpCircle, Eye, EyeOff, MessageCircle, Send } from 'lucide-react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { getAllSubjects, checkEnrollment } from '../../api/subjectService';
-import { getAllLessons } from '../../api/lessonService';
+import { getAllLessons, markLessonComplete } from '../../api/lessonService';
 import { getLessonFAQs, submitQuery } from '../../api/faqService';
 import { useTheme } from '../../contexts/ThemeContext';
 import YouTube from 'react-youtube'; // Import react-youtube
@@ -221,11 +221,27 @@ const SubjectContent = () => {
   };
 
   // Mark lesson as completed
-  const markAsCompleted = (lessonId) => {
+  const markAsCompleted = async (lessonId) => {
     if (completedItems[lessonId]) return; // Don't re-mark
     
-    const newCompleted = { ...completedItems, [lessonId]: true };
-    saveProgress(newCompleted);
+    try {
+      // 1. Call backend API to record completion
+      await markLessonComplete(lessonId);
+
+      // 2. Update local state/storage
+      const newCompleted = { ...completedItems, [lessonId]: true };
+      saveProgress(newCompleted);
+      
+      // Optional: Re-fetch lessons to update progress bar immediately if needed,
+      // but local state update should suffice for immediate visual feedback.
+      // If the instructor view is still showing 0, it means the student's action
+      // wasn't recorded. This API call fixes that.
+
+    } catch (error) {
+      console.error('Failed to mark lesson complete on server:', error);
+      // Optionally show an error message to the user
+      alert('Failed to record completion on the server. Please try again.');
+    }
   };
 
   const handleQuizAnswer = (questionId, answerIndex) => {

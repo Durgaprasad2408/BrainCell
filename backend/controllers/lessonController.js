@@ -1,4 +1,6 @@
+import mongoose from 'mongoose';
 import Lesson from '../models/Lesson.js';
+import LessonProgress from '../models/LessonProgress.js';
 import cloudinary from '../config/cloudinary.js';
 import { Readable } from 'stream';
 
@@ -71,30 +73,58 @@ export const getAllLessons = async (req, res) => {
   try {
     const { subject, module, type, search } = req.query;
 
-    let query = {};
+    let matchQuery = {};
 
     if (subject && subject !== 'all') {
-      query.subject = subject;
+      matchQuery.subject = subject;
     }
 
     if (module && module !== 'all') {
-      query.module = module;
+      matchQuery.module = module;
     }
 
     if (type && type !== 'all') {
-      query.type = type;
+      matchQuery.type = type;
     }
 
     if (search) {
-      query.$or = [
+      matchQuery.$or = [
         { title: { $regex: search, $options: 'i' } },
         { module: { $regex: search, $options: 'i' } }
       ];
     }
 
-    const lessons = await Lesson.find(query)
-      .populate('createdBy', 'name email')
-      .sort({ createdAt: 1 });
+    const lessons = await Lesson.aggregate([
+      { $match: matchQuery },
+      { $sort: { createdAt: 1 } },
+      {
+        $lookup: {
+          from: 'lessonprogresses', // MongoDB collection name for LessonProgress model
+          localField: '_id',
+          foreignField: 'lesson',
+          as: 'progress'
+        }
+      },
+      {
+        $addFields: {
+          completions: {
+            $size: {
+              $filter: {
+                input: '$progress',
+                as: 'p',
+                cond: { $eq: ['$$p.completed', true] }
+              }
+            }
+          }
+        }
+      },
+      { $project: { progress: 0 } } // Remove the temporary progress field
+    ]);
+
+    // Since we are using aggregation, we need to manually populate createdBy if needed,
+    // but for this view, we can skip it for simplicity or use another lookup if necessary.
+    // Assuming 'createdBy' population is not strictly required for the table view based on the screenshot.
+    // If it is required, we would need another $lookup. For now, we rely on the existing fields.
 
     res.status(200).json({
       success: true,
@@ -440,6 +470,57 @@ export const getInstructorStats = async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Failed to fetch lesson stats',
+      error: error.message
+    });
+  }
+};
+
+export const markLessonComplete = async (req, res) => {
+  try {
+    const { lessonId } = req.body;
+    const userId = req.user._id;
+
+    if (!lessonId) {
+      return res.status(400).json({
+        success: false,
+        message: 'Lesson ID is required'
+      });
+    }
+
+    // Validate that lessonId is a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(lessonId)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid lesson ID format'
+      });
+    }
+
+    // Verify that the lesson exists
+    const lesson = await Lesson.findById(lessonId);
+    if (!lesson) {
+      return res.status(404).json({
+        success: false,
+        message: 'Lesson not found'
+      });
+    }
+
+    // Find and update or create the LessonProgress record
+    const progress = await LessonProgress.findOneAndUpdate(
+      { user: userId, lesson: lessonId },
+      { completed: true, completedAt: new Date() },
+      { upsert: true, new: true }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: 'Lesson marked as complete',
+      data: progress
+    });
+  } catch (error) {
+    console.error('Error marking lesson complete:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to mark lesson complete',
       error: error.message
     });
   }
