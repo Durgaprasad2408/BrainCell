@@ -130,7 +130,6 @@ const Challenges = () => {
   }, [challenges]);
 
   const filteredChallenges = challenges.filter(challenge => challenge.status === activeTab);
-  const totalPages = Math.ceil(filteredChallenges.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedChallenges = filteredChallenges.slice(startIndex, startIndex + itemsPerPage);
 
@@ -152,9 +151,10 @@ const Challenges = () => {
           isDark={isDark}
         />
         <ChallengePagination
+          filteredChallengesLength={filteredChallenges.length}
           currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
+          setCurrentPage={handlePageChange}
+          pageSize={itemsPerPage}
           isDark={isDark}
         />
       </div>

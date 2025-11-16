@@ -309,6 +309,7 @@ const AdminChallengeManagement = () => {
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           pageSize={pageSize}
+          isDark={isDark}
         />
       </div>
 

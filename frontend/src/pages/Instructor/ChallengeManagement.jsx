@@ -309,6 +309,7 @@ const InstructorChallengeManagement = () => {
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           pageSize={pageSize}
+          isDark={isDark}
         />
       </div>
 
