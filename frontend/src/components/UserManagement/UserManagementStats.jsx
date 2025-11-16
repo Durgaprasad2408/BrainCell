@@ -11,9 +11,10 @@ const UserManagementStats = ({ users, selectedRole, onRoleSelect }) => {
     title, 
     count, 
     icon, 
-    isSelected, 
-    onClick, 
-    selectedColor 
+    isSelected,
+    onClick,
+    selectedColor,
+    selectedTextColor
   }) => (
     <div
       onClick={onClick}
@@ -33,8 +34,8 @@ const UserManagementStats = ({ users, selectedRole, onRoleSelect }) => {
             {title}
           </p>
           <p className={`text-3xl font-bold ${
-            isSelected 
-              ? selectedColor.replace('bg-', 'text-').replace('/30', '').replace('/50', '')
+            isSelected
+              ? selectedTextColor
               : isDark ? 'text-white' : 'text-gray-900'
           }`}>
             {count}
@@ -63,6 +64,7 @@ const UserManagementStats = ({ users, selectedRole, onRoleSelect }) => {
         isSelected={selectedRole === 'student'}
         onClick={() => onRoleSelect('student')}
         selectedColor={isDark ? 'bg-blue-900/30' : 'bg-blue-50'}
+        selectedTextColor={isDark ? 'text-blue-400' : 'text-blue-700'}
       />
       
       <StatCard
@@ -72,6 +74,7 @@ const UserManagementStats = ({ users, selectedRole, onRoleSelect }) => {
         isSelected={selectedRole === 'faculty'}
         onClick={() => onRoleSelect('faculty')}
         selectedColor={isDark ? 'bg-purple-900/30' : 'bg-purple-50'}
+        selectedTextColor={isDark ? 'text-purple-400' : 'text-purple-700'}
       />
     </div>
   );

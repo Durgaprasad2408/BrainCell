@@ -1,13 +1,31 @@
-import React from 'react';
-import { Edit, Trash2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { Edit, Trash2, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const UserTable = ({ users, selectedRole, onEditUser, onDeleteUser, isDark }) => {
-  const filteredUsers = users.filter(user => {
-    const matchesRole =
-      (selectedRole === 'student' && user.role === 'user') ||
-      (selectedRole === 'faculty' && user.role === 'instructor');
-    return matchesRole;
-  });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10); // Default 10 users per page
+  const [selectedItemsPerPage, setSelectedItemsPerPage] = useState(10);
+
+  // Users are already filtered in the main component, so we use them directly
+  const totalPages = Math.ceil(users.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentUsers = users.slice(startIndex, endIndex);
+
+  // Reset to page 1 when user list changes (filters changed)
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [users]);
+
+  // Reset to page 1 when items per page changes
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedItemsPerPage]);
+
+  // Update itemsPerPage when selection changes
+  React.useEffect(() => {
+    setItemsPerPage(selectedItemsPerPage);
+  }, [selectedItemsPerPage]);
 
   const getRoleBadge = (role) => {
     if (role === 'instructor') return isDark ? 'bg-purple-900/30 text-purple-400' : 'bg-purple-100 text-purple-800';
@@ -23,6 +41,26 @@ const UserTable = ({ users, selectedRole, onEditUser, onDeleteUser, isDark }) =>
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString();
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const handleItemsPerPageChange = (e) => {
+    setSelectedItemsPerPage(Number(e.target.value));
   };
 
   return (
@@ -49,7 +87,7 @@ const UserTable = ({ users, selectedRole, onEditUser, onDeleteUser, isDark }) =>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-            {filteredUsers.map((user) => (
+            {currentUsers.map((user) => (
               <tr key={user._id} className={`${isDark ? 'hover:bg-gray-700/50' : 'hover:bg-gray-50'} transition-colors`}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center gap-3">
@@ -123,31 +161,115 @@ const UserTable = ({ users, selectedRole, onEditUser, onDeleteUser, isDark }) =>
         </table>
       </div>
 
-      <div className={`px-6 py-4 border-t ${isDark ? 'border-gray-700' : 'border-gray-200'} flex items-center justify-between`}>
-        <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-          Showing {filteredUsers.length} {selectedRole === 'student' ? 'students' : 'faculty'}
-        </p>
-        <div className="flex gap-2">
-          <button
-            className={`px-4 py-2 rounded-lg border ${
-              isDark
-                ? 'bg-gray-700 border-gray-600 text-white hover:bg-gray-600'
-                : 'bg-white border-gray-300 text-gray-900 hover:bg-gray-50'
-            } transition-colors`}
-          >
-            Previous
-          </button>
-          <button
-            className={`px-4 py-2 rounded-lg border ${
-              isDark
-                ? 'bg-gray-700 border-gray-600 text-white hover:bg-gray-600'
-                : 'bg-white border-gray-300 text-gray-900 hover:bg-gray-50'
-            } transition-colors`}
-          >
-            Next
-          </button>
+      {/* Pagination and Controls */}
+      {totalPages > 0 && (
+        <div className={`px-6 py-4 border-t ${isDark ? 'border-gray-700' : 'border-gray-200'}`}>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            
+            {/* Items per page selector and results count */}
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <span className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                  Show:
+                </span>
+                <select
+                  value={selectedItemsPerPage}
+                  onChange={handleItemsPerPageChange}
+                  className={`px-3 py-1 rounded-lg border text-sm ${
+                    isDark
+                      ? 'bg-gray-700 border-gray-600 text-white'
+                      : 'bg-white border-gray-300 text-gray-900'
+                  } focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                >
+                  <option value={10}>10</option>
+                  <option value={25}>25</option>
+                  <option value={50}>50</option>
+                  <option value={100}>100</option>
+                </select>
+                <span className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                  per page
+                </span>
+              </div>
+              
+              <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                Showing {startIndex + 1}-{Math.min(endIndex, users.length)} of {users.length} {selectedRole === 'student' ? 'students' : 'faculty'}
+              </p>
+            </div>
+
+            {/* Navigation buttons */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handlePreviousPage}
+                disabled={currentPage === 1}
+                className={`flex items-center gap-1 px-3 py-2 rounded-lg border transition-colors ${
+                  currentPage === 1
+                    ? 'opacity-50 cursor-not-allowed'
+                    : isDark
+                      ? 'bg-gray-700 border-gray-600 text-white hover:bg-gray-600'
+                      : 'bg-white border-gray-300 text-gray-900 hover:bg-gray-50'
+                }`}
+              >
+                <ChevronLeft className="w-4 h-4" />
+                Previous
+              </button>
+
+              {/* Page Numbers */}
+              <div className="flex items-center gap-1">
+                {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                  let pageNum;
+                  if (totalPages <= 5) {
+                    pageNum = i + 1;
+                  } else if (currentPage <= 3) {
+                    pageNum = i + 1;
+                  } else if (currentPage >= totalPages - 2) {
+                    pageNum = totalPages - 4 + i;
+                  } else {
+                    pageNum = currentPage - 2 + i;
+                  }
+
+                  return (
+                    <button
+                      key={pageNum}
+                      onClick={() => handlePageChange(pageNum)}
+                      className={`w-8 h-8 rounded-lg text-sm font-medium transition-colors ${
+                        currentPage === pageNum
+                          ? 'bg-blue-600 text-white'
+                          : isDark
+                            ? 'bg-gray-700 border-gray-600 text-white hover:bg-gray-600'
+                            : 'bg-white border-gray-300 text-gray-900 hover:bg-gray-50'
+                      }`}
+                    >
+                      {pageNum}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <button
+                onClick={handleNextPage}
+                disabled={currentPage === totalPages}
+                className={`flex items-center gap-1 px-3 py-2 rounded-lg border transition-colors ${
+                  currentPage === totalPages
+                    ? 'opacity-50 cursor-not-allowed'
+                    : isDark
+                      ? 'bg-gray-700 border-gray-600 text-white hover:bg-gray-600'
+                      : 'bg-white border-gray-300 text-gray-900 hover:bg-gray-50'
+                }`}
+              >
+                Next
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
+      
+      {/* No results state */}
+      {users.length === 0 && (
+        <div className={`px-6 py-8 text-center ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+          No {selectedRole === 'student' ? 'students' : 'faculty'} found matching your criteria.
+        </div>
+      )}
     </div>
   );
 };
