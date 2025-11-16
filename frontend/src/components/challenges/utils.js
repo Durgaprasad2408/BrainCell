@@ -60,16 +60,57 @@ export const parseBulkCsv = (file) => {
 };
 
 export const getStatusColor = (status, isDark) => {
-  if (status === 'Published' || status === 'live') return isDark ? 'bg-green-900/30 text-green-400' : 'bg-green-100 text-green-800';
-  if (status === 'completed') return isDark ? 'bg-blue-900/30 text-blue-400' : 'bg-blue-100 text-blue-800';
-  if (status === 'upcoming') return isDark ? 'bg-yellow-900/30 text-yellow-400' : 'bg-yellow-100 text-yellow-800';
-  return isDark ? 'bg-gray-700 text-gray-400' : 'bg-gray-200 text-gray-700';
+  if (isDark) {
+    switch (status) {
+      case 'live': return 'bg-green-900/30 text-green-400 border-green-700';
+      case 'completed': return 'bg-blue-900/30 text-blue-400 border-blue-700';
+      case 'upcoming': return 'bg-yellow-900/30 text-yellow-400 border-yellow-700';
+      default: return 'bg-gray-700 text-gray-300 border-gray-600';
+    }
+  } else {
+    switch (status) {
+      case 'live': return 'bg-green-100 text-green-800 border-green-200';
+      case 'completed': return 'bg-blue-100 text-blue-800 border-blue-200';
+      case 'upcoming': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+    }
+  }
 };
 
-export const getDifficultyColor = (difficulty, isDark) => {
-  if (difficulty === 'Easy') return isDark ? 'bg-green-900/30 text-green-400' : 'bg-green-100 text-green-800';
-  if (difficulty === 'Medium') return isDark ? 'bg-yellow-900/30 text-yellow-400' : 'bg-yellow-100 text-yellow-800';
-  return isDark ? 'bg-red-900/30 text-red-400' : 'bg-red-100 text-red-800';
+export const getDifficultyColor = (difficulty) => {
+  switch (difficulty) {
+    case 'Easy': return 'text-green-600';
+    case 'Medium': return 'text-yellow-600';
+    case 'Hard': return 'text-red-600';
+    default: return 'text-gray-600';
+  }
+};
+
+export const getBadgeColor = (badge) => {
+  switch (badge) {
+    case 'gold': return 'bg-yellow-400 text-yellow-900';
+    case 'silver': return 'bg-gray-300 text-gray-800';
+    case 'bronze': return 'bg-orange-400 text-orange-900';
+    default: return 'bg-gray-200 text-gray-700';
+  }
+};
+
+export const formatDate = (dateString) => {
+  const dateObj = new Date(dateString);
+  return dateObj.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  });
+};
+
+export const formatTime = (dateString) => {
+  const dateObj = new Date(dateString);
+  return dateObj.toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+  });
 };
 
 export const getSuccessRateColor = (rate) => {

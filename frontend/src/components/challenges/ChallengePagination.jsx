@@ -1,137 +1,66 @@
 import React from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const ChallengePagination = ({ 
-  filteredChallengesLength, 
-  currentPage,
-  setCurrentPage,
-  pageSize
-}) => {
-  const { isDark } = useTheme();
+const ChallengePagination = ({ currentPage, totalPages, onPageChange, isDark }) => {
+  if (totalPages <= 1) return null;
 
-  const totalPages = Math.ceil(filteredChallengesLength / pageSize);
-  const startItem = (currentPage - 1) * pageSize + 1;
-  const endItem = Math.min(currentPage * pageSize, filteredChallengesLength);
-
-  const handlePageChange = (page) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
-    }
+  const handlePrev = () => {
+    if (currentPage > 1) onPageChange(currentPage - 1);
   };
 
-  const generatePageNumbers = () => {
-    const pages = [];
-    const maxVisiblePages = 5;
-    
-    if (totalPages <= maxVisiblePages) {
-      for (let i = 1; i <= totalPages; i++) {
-        pages.push(i);
-      }
-    } else {
-      if (currentPage <= 3) {
-        for (let i = 1; i <= 4; i++) {
-          pages.push(i);
-        }
-        pages.push('...');
-        pages.push(totalPages);
-      } else if (currentPage >= totalPages - 2) {
-        pages.push(1);
-        pages.push('...');
-        for (let i = totalPages - 3; i <= totalPages; i++) {
-          pages.push(i);
-        }
-      } else {
-        pages.push(1);
-        pages.push('...');
-        for (let i = currentPage - 1; i <= currentPage + 1; i++) {
-          pages.push(i);
-        }
-        pages.push('...');
-        pages.push(totalPages);
-      }
-    }
-    
-    return pages;
+  const handleNext = () => {
+    if (currentPage < totalPages) onPageChange(currentPage + 1);
   };
 
   return (
-    <div className={`px-6 py-4 border-t ${isDark ? 'border-gray-700' : 'border-gray-200'}`}>
-      <div className="flex items-center justify-between">
-        {/* Results Info */}
-        <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-          Showing {filteredChallengesLength > 0 ? startItem : 0} to {endItem} of {filteredChallengesLength} challenges
-        </p>
+    <div className="flex items-center justify-center gap-2 mt-8">
+      <button
+        type="button"
+        aria-label="Previous"
+        onClick={handlePrev}
+        disabled={currentPage === 1}
+        className={`mr-4 p-2 rounded-md transition-colors ${
+          currentPage === 1
+            ? 'opacity-50 cursor-not-allowed'
+            : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+        }`}
+      >
+        <svg width="9" height="16" viewBox="0 0 12 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11 1L2 9.24242L11 17" stroke={isDark ? '#9CA3AF' : '#111820'} strokeOpacity="0.7" strokeWidth="2" strokeLinecap="round"/>
+        </svg>
+      </button>
 
-        {/* Pagination Controls */}
-        {totalPages > 1 && (
-          <div className="flex items-center gap-2">
-            {/* Previous Button */}
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-              className={`flex items-center gap-1 px-3 py-2 rounded-lg border ${
-                currentPage === 1
-                  ? isDark
-                    ? 'bg-gray-800 border-gray-700 text-gray-600 cursor-not-allowed'
-                    : 'bg-gray-100 border-gray-300 text-gray-400 cursor-not-allowed'
-                  : isDark
-                  ? 'bg-gray-700 border-gray-600 text-white hover:bg-gray-600'
-                  : 'bg-white border-gray-300 text-gray-900 hover:bg-gray-50'
-              } transition-colors`}
-            >
-              <ChevronLeft className="w-4 h-4" />
-              Previous
-            </button>
-
-            {/* Page Numbers */}
-            <div className="flex items-center gap-1">
-              {generatePageNumbers().map((page, index) => (
-                <React.Fragment key={index}>
-                  {page === '...' ? (
-                    <span className={`px-3 py-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                      ...
-                    </span>
-                  ) : (
-                    <button
-                      onClick={() => handlePageChange(page)}
-                      className={`px-3 py-2 rounded-lg border ${
-                        currentPage === page
-                          ? isDark
-                            ? 'bg-blue-600 border-blue-600 text-white'
-                            : 'bg-blue-600 border-blue-600 text-white'
-                          : isDark
-                          ? 'bg-gray-700 border-gray-600 text-white hover:bg-gray-600'
-                          : 'bg-white border-gray-300 text-gray-900 hover:bg-gray-50'
-                      } transition-colors`}
-                    >
-                      {page}
-                    </button>
-                  )}
-                </React.Fragment>
-              ))}
-            </div>
-
-            {/* Next Button */}
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className={`flex items-center gap-1 px-3 py-2 rounded-lg border ${
-                currentPage === totalPages
-                  ? isDark
-                    ? 'bg-gray-800 border-gray-700 text-gray-600 cursor-not-allowed'
-                    : 'bg-gray-100 border-gray-300 text-gray-400 cursor-not-allowed'
-                  : isDark
-                  ? 'bg-gray-700 border-gray-600 text-white hover:bg-gray-600'
-                  : 'bg-white border-gray-300 text-gray-900 hover:bg-gray-50'
-              } transition-colors`}
-            >
-              Next
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-        )}
+      <div className="flex gap-2 text-gray-500 text-sm md:text-base">
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+          <button
+            key={page}
+            type="button"
+            onClick={() => onPageChange(page)}
+            className={`flex items-center justify-center active:scale-95 w-9 md:w-12 h-9 md:h-12 aspect-square rounded-md transition-all ${
+              currentPage === page
+                ? 'bg-indigo-500 text-white'
+                : `bg-white border border-gray-200 hover:bg-gray-100/70 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 dark:text-gray-300`
+            }`}
+          >
+            {page}
+          </button>
+        ))}
       </div>
+
+      <button
+        type="button"
+        aria-label="Next"
+        onClick={handleNext}
+        disabled={currentPage === totalPages}
+        className={`ml-4 p-2 rounded-md transition-colors ${
+          currentPage === totalPages
+            ? 'opacity-50 cursor-not-allowed'
+            : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+        }`}
+      >
+        <svg width="9" height="16" viewBox="0 0 12 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 1L10 9.24242L1 17" stroke={isDark ? '#9CA3AF' : '#111820'} strokeOpacity="0.7" strokeWidth="2" strokeLinecap="round"/>
+        </svg>
+      </button>
     </div>
   );
 };
