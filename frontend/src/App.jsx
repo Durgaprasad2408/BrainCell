@@ -46,7 +46,6 @@ import LibraryManagement from './pages/admin/LibraryManagement';
 import LearningContentManagement from './pages/admin/LearningContentManagement';
 import SubjectUsersData from './pages/admin/SubjectUsersData';
 import LessonMetrics from './pages/admin/LessonMetrics';
-import Statistics from './pages/admin/Statistics';
 import Profile from './pages/Profile';
 import InstructorLayout from './components/InstructorLayout';
 import InstructorDashboard from './pages/Instructor/InstructorDashboard';
@@ -140,7 +139,6 @@ const AppContent = () => {
           <Route path="learning/users/:subjectName" element={<SubjectUsersData />} />
           <Route path="learning/metrics/:lessonId" element={<LessonMetrics />} />
           <Route path="queries" element={<AdminQueries />} />
-          <Route path="statistics" element={<Statistics />} />
           <Route path="profile" element={<Profile />} />
         </Route>
 

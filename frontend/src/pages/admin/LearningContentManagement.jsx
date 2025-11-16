@@ -1240,12 +1240,16 @@ const LearningContentManagement = () => {
                   onChange={(e) => setNewSubject({ ...newSubject, description: e.target.value })}
                   placeholder="Describe what this subject covers..."
                   rows={4}
+                  maxLength="200"
                   className={`w-full px-4 py-2 rounded-lg border ${
                     isDark
                       ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400'
                       : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
                   } focus:outline-none focus:ring-2 focus:ring-blue-500`}
                 />
+                <p className={`text-xs mt-1 text-right ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                  {newSubject.description.length}/200 characters
+                </p>
               </div>
 
               <div>
@@ -1308,7 +1312,7 @@ const LearningContentManagement = () => {
                     handleCreateSubject();
                   }
                 }}
-                disabled={!newSubject.name || !newSubject.description || !newSubject.image || loading}
+                disabled={!newSubject.name || !newSubject.description || (!editingSubject && !newSubject.image) || loading}
                 className={`px-6 py-2 rounded-lg font-medium transition-colors ${
                   !newSubject.name || !newSubject.description || loading
                     ? 'bg-gray-400 cursor-not-allowed text-white'

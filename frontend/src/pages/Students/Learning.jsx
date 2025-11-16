@@ -9,10 +9,17 @@ const Learning = () => {
   const [enrolledSubjects, setEnrolledSubjects] = useState({});
   const [loading, setLoading] = useState(true);
   const [enrolling, setEnrolling] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6; // 3 rows of 3
 
   useEffect(() => {
     fetchSubjects();
   }, []);
+
+  useEffect(() => {
+    setCurrentPage(1); // Reset to first page when search changes
+  }, [searchQuery]);
 
   const fetchSubjects = async () => {
     try {
@@ -58,28 +65,69 @@ const Learning = () => {
     window.location.href = `/student/learning/${encodeURIComponent(subject.name)}`;
   };
 
-  const renderSubjectCards = () => (
-    <div className="max-w-7xl mx-auto px-6 py-12">
-      <div className="text-center mb-12">
-        <h1 className={`text-4xl font-bold mb-4 transition-colors duration-200 ${
-          isDark ? 'text-white' : 'text-gray-900'
-        }`}>
-          Choose Your Subject
-        </h1>
-        <p className={`text-lg transition-colors duration-200 ${
-          isDark ? 'text-gray-400' : 'text-gray-600'
-        }`}>
-          Select a subject to start learning
-        </p>
-      </div>
+  const renderSubjectCards = () => {
+    const filteredSubjects = subjects.filter(subject =>
+      subject.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      subject.description.toLowerCase().includes(searchQuery.toLowerCase())
+    ).sort((a, b) => {
+      const aEnrolled = enrolledSubjects[a._id];
+      const bEnrolled = enrolledSubjects[b._id];
+      if (aEnrolled && !bEnrolled) return -1;
+      if (!aEnrolled && bEnrolled) return 1;
+      return 0;
+    });
 
-      {loading ? (
-        <div className="text-center py-12">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+    const totalPages = Math.ceil(filteredSubjects.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const paginatedSubjects = filteredSubjects.slice(startIndex, startIndex + itemsPerPage);
+
+    const handlePageChange = (page) => {
+      setCurrentPage(page);
+    };
+
+    const handlePrev = () => {
+      if (currentPage > 1) setCurrentPage(currentPage - 1);
+    };
+
+    const handleNext = () => {
+      if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+    };
+
+    return (
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        <div className="text-center mb-12">
+          <h1 className={`text-4xl font-bold mb-4 transition-colors duration-200 ${
+            isDark ? 'text-white' : 'text-gray-900'
+          }`}>
+            Choose Your Subject
+          </h1>
+          <p className={`text-lg transition-colors duration-200 ${
+            isDark ? 'text-gray-400' : 'text-gray-600'
+          }`}>
+            Select a subject to start learning
+          </p>
+          <div className="mt-8 max-w-2xl mx-auto">
+            <input
+              type="text"
+              placeholder="Search subjects..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className={`w-full px-4 py-3 rounded-lg border transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                isDark
+                  ? 'bg-gray-800 border-gray-700 text-white placeholder-gray-400'
+                  : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+              }`}
+            />
+          </div>
         </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {subjects.map((subject) => {
+
+        {loading ? (
+          <div className="text-center py-12">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {paginatedSubjects.map((subject) => {
             const isEnrolled = enrolledSubjects[subject._id];
             const isEnrollingThis = enrolling === subject._id;
 
@@ -160,8 +208,62 @@ const Learning = () => {
           })}
         </div>
       )}
+
+      {totalPages > 0 && (
+        <div className="flex items-center justify-center gap-2 mt-8">
+          <button
+            type="button"
+            aria-label="Previous"
+            onClick={handlePrev}
+            disabled={currentPage === 1}
+            className={`mr-4 p-2 rounded-md transition-colors ${
+              currentPage === 1
+                ? 'opacity-50 cursor-not-allowed'
+                : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+            }`}
+          >
+            <svg width="9" height="16" viewBox="0 0 12 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11 1L2 9.24242L11 17" stroke={isDark ? '#9CA3AF' : '#111820'} strokeOpacity="0.7" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+          </button>
+
+          <div className="flex gap-2 text-gray-500 text-sm md:text-base">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+              <button
+                key={page}
+                type="button"
+                onClick={() => handlePageChange(page)}
+                className={`flex items-center justify-center active:scale-95 w-9 md:w-12 h-9 md:h-12 aspect-square rounded-md transition-all ${
+                  currentPage === page
+                    ? 'bg-indigo-500 text-white'
+                    : `bg-white border border-gray-200 hover:bg-gray-100/70 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 dark:text-gray-300`
+                }`}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            aria-label="Next"
+            onClick={handleNext}
+            disabled={currentPage === totalPages}
+            className={`ml-4 p-2 rounded-md transition-colors ${
+              currentPage === totalPages
+                ? 'opacity-50 cursor-not-allowed'
+                : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+            }`}
+          >
+            <svg width="9" height="16" viewBox="0 0 12 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 1L10 9.24242L1 17" stroke={isDark ? '#9CA3AF' : '#111820'} strokeOpacity="0.7" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+          </button>
+        </div>
+      )}
     </div>
   );
+};
 
   return (
     <div className={`min-h-screen transition-colors duration-200 pt-20 ${

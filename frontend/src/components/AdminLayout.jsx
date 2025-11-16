@@ -33,7 +33,6 @@ const AdminLayout = () => {
     { path: '/admin/library', label: 'Library Resources', icon: Library },
     { path: '/admin/learning', label: 'Learning Content', icon: BookOpen },
     { path: '/admin/queries', label: 'Queries', icon: MessageCircle },
-    { path: '/admin/statistics', label: 'Statistics', icon: BarChart3 },
     { path: '/admin/profile', label: 'Profile', icon: UserCircle }
   ];
 
