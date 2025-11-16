@@ -143,7 +143,7 @@ export const getInstructorChallenges = async (req, res) => {
 };
 
 export const getPublishedChallenges = async (req, res) => {
-  // Return all published challenges for the Practice page to display
+  // Return all published challenges for the challenges page to display
   try {
     const { category, difficulty, search } = req.query;
 

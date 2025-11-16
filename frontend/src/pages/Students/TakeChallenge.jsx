@@ -55,7 +55,7 @@ const TakeChallenge = () => {
 
           if (!Array.isArray(fetchedChallenge.questions) || fetchedChallenge.questions.length === 0) {
             alert('No questions available for this challenge.');
-            navigate('/student/practice');
+            navigate('/student/challenges');
             return;
           }
           
@@ -113,7 +113,7 @@ const TakeChallenge = () => {
 
       if (response.success) {
         // *** KEY CHANGE: Navigate to the new results page ***
-        navigate(`/student/practice/results/${challenge._id}`);
+        navigate(`/student/challenges/results/${challenge._id}`);
       } else {
         alert(response.message || 'Submission failed. Please try again.');
       }
@@ -144,7 +144,7 @@ const TakeChallenge = () => {
       <div className={`min-h-screen ${isDark ? 'bg-gray-900' : 'bg-gray-50'} pt-20 pb-8 transition-colors duration-200`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`${isDark ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow-lg p-6`}>
-            <button onClick={() => navigate('/student/practice')} className={`flex items-center space-x-2 mb-4 ${isDark ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`}>
+            <button onClick={() => navigate('/student/challenges')} className={`flex items-center space-x-2 mb-4 ${isDark ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`}>
               <ArrowLeft className="w-5 h-5" />
               <span>Back to Challenges</span>
             </button>
@@ -180,7 +180,7 @@ const TakeChallenge = () => {
               <button
                 onClick={() => {
                   if (window.confirm('Are you sure you want to leave? Your progress will be lost.')) {
-                    navigate('/student/practice');
+                    navigate('/student/challenges');
                   }
                 }}
                 className={`flex items-center space-x-2 text-sm font-medium ${

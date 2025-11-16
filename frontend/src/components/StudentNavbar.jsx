@@ -15,8 +15,7 @@ const StudentNavbar = () => {
     { name: 'Learn', path: '/student/learning' },
     { name: 'Playground', path: '/student/playgrounds' },
     { name: 'Library', path: '/student/library' },
-    { name: 'Practice', path: '/student/practice' },
-    { name: 'Dashboard', path: '/student/dashboard' }
+    { name: 'Challenges', path: '/student/challenges' },
   ];
 
   useEffect(() => {

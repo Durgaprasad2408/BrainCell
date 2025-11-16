@@ -196,7 +196,7 @@ const Results = ({ submission, challenge, onBack }) => {
 
           <div className="mt-6">
             <button
-              onClick={() => navigate(`/student/practice/leaderboard/${challenge._id}`)}
+              onClick={() => navigate(`/student/challenges/leaderboard/${challenge._id}`)}
               className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
             >
               <Trophy className="w-5 h-5" />

@@ -52,7 +52,7 @@ const ChallengeResults = () => {
   }, [challengeId]);
 
   const handleBack = () => {
-    navigate('/student/practice');
+    navigate('/student/challenges');
   };
 
   if (loading) {

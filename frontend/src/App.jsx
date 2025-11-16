@@ -31,7 +31,7 @@ import Footer from './components/Footer';
 import Playground from './pages/Playgrounds/Playgrounds';
 import PumpingLemmaPlayground from './pages/Playgrounds/PumpingLemmaPlayground';
 import Library from './pages/Students/Library';
-import Practice from './pages/Students/Practice';
+import Challenges from './pages/Students/Challenges';
 import Dashboard from './pages/Students/Dashboard';
 import StudentLayout from './components/StudentLayout';
 import Leaderboard from './pages/Students/Leaderboard';
@@ -101,10 +101,10 @@ const AppContent = () => {
           <Route path="learning/:subjectName" element={<SubjectContent />} />
           <Route path="library" element={<Library />} />
           
-          <Route path="practice" element={<Practice />} />
-          <Route path="practice/take/:challengeId" element={<TakeChallenge />} />
-          <Route path="practice/results/:challengeId" element={<ChallengeResults />} />
-          <Route path="practice/leaderboard/:challengeId" element={<Leaderboard />} />
+          <Route path="challenges" element={<Challenges />} />
+          <Route path="challenges/take/:challengeId" element={<TakeChallenge />} />
+          <Route path="challenges/results/:challengeId" element={<ChallengeResults />} />
+          <Route path="challenges/leaderboard/:challengeId" element={<Leaderboard />} />
 
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="profile" element={<Profile />} />

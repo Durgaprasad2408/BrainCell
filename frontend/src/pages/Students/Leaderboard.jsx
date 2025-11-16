@@ -69,7 +69,7 @@ const Leaderboard = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`${isDark ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow-lg p-6`}>
             <button
-              onClick={() => navigate('/student/practice')}
+              onClick={() => navigate('/student/challenges')}
               className={`flex items-center space-x-2 mb-4 ${
                 isDark
                   ? 'text-gray-300 hover:text-white'
@@ -98,7 +98,7 @@ const Leaderboard = () => {
         <div className={`${isDark ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow-lg p-6 mb-6`}>
           <div className="flex items-center justify-between mb-6">
             <button
-              onClick={() => navigate('/student/practice')}
+              onClick={() => navigate('/student/challenges')}
               className={`flex items-center space-x-2 ${
                 isDark
                   ? 'text-gray-300 hover:text-white'

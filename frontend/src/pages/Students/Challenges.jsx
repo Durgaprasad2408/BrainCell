@@ -1,4 +1,4 @@
-// src/pages/Students/Practice.jsx
+// src/pages/Students/Challenges.jsx
 
 import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, Trophy, Users, ChevronRight, Award } from 'lucide-react';
@@ -7,7 +7,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useNavigate } from 'react-router-dom';
 
-const Practice = () => {
+const Challenges = () => {
   const { isAuthenticated } = useAuth();
   const { isDark } = useTheme(); 
   const navigate = useNavigate();
@@ -249,7 +249,7 @@ const Practice = () => {
             onClick={(e) => {
               e.stopPropagation();
               if (challenge.status !== 'upcoming') {
-                navigate(`/student/practice/leaderboard/${challenge.id}`);
+                navigate(`/student/challenges/leaderboard/${challenge.id}`);
               }
             }}
           >
@@ -264,7 +264,7 @@ const Practice = () => {
               onClick={(e) => {
                 e.stopPropagation();
                 // KEY CHANGE: Navigate to the results page
-                navigate(`/student/practice/results/${challenge.id}`); 
+                navigate(`/student/challenges/results/${challenge.id}`); 
               }}
             >
               <Award className="w-4 h-4" />
@@ -311,7 +311,7 @@ const Practice = () => {
                     return;
                   }
                   // KEY CHANGE: Navigate to the take challenge page
-                  navigate(`/student/practice/take/${challenge.id}`);
+                  navigate(`/student/challenges/take/${challenge.id}`);
                 }}
               >
                 <span>Take Challenge</span>
@@ -407,4 +407,4 @@ const Practice = () => {
   );
 };
 
-export default Practice;
+export default Challenges;
