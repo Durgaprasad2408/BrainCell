@@ -15,7 +15,7 @@ import {
   LibraryFilters,
   LibraryTable,
   AddResourceModal
-} from '../../components/Library';
+} from '../../components/library';
 
 const LibraryManagement = () => {
   const { isDark } = useTheme();
