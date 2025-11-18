@@ -1,895 +1,446 @@
-# Automata Theory Learning Platform
+# 🚀 BrainCell - Subject Learning Platform
 
-<div align="center">
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![React](https://img.shields.io/badge/React-18.1.1-blue.svg)](https://reactjs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-16+-green.svg)](https://nodejs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-8.0+-blue.svg)](https://www.mongodb.com/)
 
-```
-╔═══════════════════════════════════════════════════════════╗
-║                                                           ║
-║  ◆ AUTOMATA THEORY LEARNING PLATFORM ◆                  ║
-║                                                           ║
-║     Master Complex Automata with Interactive Simulators   ║
-║                                                           ║
-╚═══════════════════════════════════════════════════════════╝
-```
+> **Empowering Engineering Minds Through Interactive Learning** 🌟
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
-[![React](https://img.shields.io/badge/React-19.1.1-61DAFB?style=for-the-badge&logo=react)](https://react.dev)
-[![Node.js](https://img.shields.io/badge/Node.js-Express-339933?style=for-the-badge&logo=node.js)](https://nodejs.org)
-[![MongoDB](https://img.shields.io/badge/MongoDB-8.0.0-13AA52?style=for-the-badge&logo=mongodb)](https://www.mongodb.com)
-[![Vite](https://img.shields.io/badge/Vite-7.1.2-646CFF?style=for-the-badge&logo=vite)](https://vitejs.dev)
+<a name="table-of-contents"></a>
+## 📋 Table of Contents
 
-**The Ultimate Interactive Platform for Learning Theory of Computation**
+- [🌟 Introduction](#introduction)
+- [🛠️ Tech Stack](#tech-stack)
+- [✨ Key Features](#key-features)
+- [🎮 Live Demo](#live-demo)
+- [📸 Screenshots](#screenshots)
+- [🚀 Quick Start](#quick-start)
+- [🎯 Use Cases](#use-cases)
+- [🏗️ Project Structure](#project-structure)
+- [🗺️ Roadmap](#roadmap)
+- [🤝 Contributing](#contributing)
+- [📞 Contact](#contact)
+- [📜 License](#license)
+- [🙏 Credits](#credits)
 
-[Live Demo](#demo-preview) • [Documentation](#table-of-contents) • [Get Started](#installation--setup) • [Contribute](#contributing)
+<a name="introduction"></a>
+## 🌟 Introduction
 
-</div>
+Welcome to **BrainCell**, the ultimate learning platform revolutionizing how engineering students master complex subjects! 🎓
 
----
+BrainCell is a cutting-edge, full-stack web application designed to transform engineering education through immersive, interactive experiences. Whether you're unraveling the mysteries of computer science with automata theory simulations, diving into electrical engineering circuits, or exploring mechanical design principles, BrainCell provides a comprehensive ecosystem for accelerated learning.
 
-## Overview
+### 🎯 What Makes BrainCell Special?
 
-Welcome to the **Automata Theory Learning Platform** — a revolutionary, interactive e-learning solution designed to demystify Theory of Computation. Whether you're a student struggling with DFAs, an instructor seeking engaging teaching tools, or an admin managing a learning ecosystem, this platform delivers an immersive, hands-on experience that transforms abstract concepts into visual, tangible simulations.
+- **🎮 Interactive Simulations**: Hands-on playgrounds for automata, Turing machines, and more
+- **📚 Structured Learning Paths**: Organized subjects with progressive lessons and assessments
+- **👥 Role-Based Ecosystem**: Tailored experiences for students, instructors, and administrators
+- **🤖 AI-Powered Assistance**: Integrated chatbot for instant help and guidance
+- **📊 Advanced Analytics**: Detailed progress tracking and performance insights
+- **🌐 Modern Architecture**: Built with the latest web technologies for optimal performance
 
-### Why This Platform?
+Built with modern web technologies and deployed on Vercel, BrainCell ensures a seamless, responsive experience across all devices. Join thousands of engineering students who are already accelerating their learning journey with BrainCell! 🚀
 
-- **14 Interactive Playgrounds** for visualizing and simulating automata in real-time
-- **AI-Powered Chatbot** to answer TOC questions on-demand
-- **Gamified Learning** with daily/weekly challenges and leaderboards
-- **Multi-Role Support** for students, instructors, and administrators
-- **Comprehensive Resource Library** with notes, GATE papers, and video tutorials
-- **Real-Time Engagement Tracking** and personalized learning analytics
-- **Mobile-Responsive Design** with dark mode support
 
----
+<a name="tech-stack"></a>
+## 🛠️ Tech Stack
 
-## Table of Contents
-
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Demo & Preview](#demo--preview)
-- [Installation & Setup](#installation--setup)
-- [Project Structure](#project-structure)
-- [Usage](#usage)
-- [API Endpoints](#api-endpoints-overview)
-- [Screenshots](#screenshots)
-- [Key Concepts](#key-concepts-explained)
-- [Contributing](#contributing)
-- [License](#license)
-- [Acknowledgements](#acknowledgements)
-- [Contact](#contact)
-
----
-
-## Features
-
-### Interactive Playgrounds (14 Simulators)
-
-Transform theory into practice with visual, step-by-step automata simulators:
-
-- **Finite Automata**
-  - ◆ DFA (Deterministic Finite Automaton) Simulator
-  - ◆ NFA (Nondeterministic Finite Automaton) Simulator
-  - ◆ Regex to DFA Converter
-  - ◆ NFA to DFA Conversion Tool
-  - ◆ DFA to NFA Converter
-
-- **Advanced Automata**
-  - ◆ Pushdown Automaton (PDA) Simulator
-  - ◆ Turing Machine Simulator
-  - ◆ Context-Free Grammar (CFG) Parser
-  - ◆ Chomsky Hierarchy Visualizer
-  - ◆ Pumping Lemma Demonstrator
-
-- **Sequential Machines**
-  - ◆ Mealy Machine Simulator
-  - ◆ Moore Machine Simulator
-  - ◆ Mealy to Moore Converter
-  - ◆ Moore to Mealy Converter
-
-### Learning Management System
-
-- **Structured Curriculum**: Browse subjects with lessons, topics, and learning objectives
-- **Smart Subject Organization**: Auto-generated subject hierarchies with instructor control
-- **Progress Tracking**: Monitor lesson completion and concept mastery
-- **Video Integration**: YouTube embedding for tutorial videos and concept explanations
-
-### Practice & Assessment
-
-- **Challenge System**: Daily and weekly challenges with varying difficulty levels
-- **Instant Feedback**: Detailed explanations for correct and incorrect answers
-- **Leaderboards**: Competitive rankings by challenge, subject, and overall performance
-- **Performance Analytics**: Track success rates, attempt history, and improvements over time
-
-### Resource Library
-
-- **Notes & Papers**: Download comprehensive study notes and GATE examination papers
-- **Video Resources**: Access curated video tutorials from expert instructors
-- **External Links**: Supplementary resources and reference materials
-- **Engagement Metrics**: Track views, downloads, and clicks for popularity insights
-
-### AI-Powered Chatbot
-
-- **24/7 Assistance**: Context-aware chatbot for Theory of Computation questions
-- **Conversation History**: Persistent chat memory for continuous learning
-- **User-Specific Personalization**: Tailored responses based on user learning context
-- **Quick Answers**: Instant responses to common TOC concepts
-
-### Multi-Role Architecture
-
-| Role | Capabilities |
-|------|--------------|
-| **Student** | Learn, practice challenges, access playgrounds, track progress, interact with chatbot |
-| **Instructor** | Create content, manage challenges, upload resources, monitor student progress, customize curriculum |
-| **Admin** | Full system control, user management, analytics, resource oversight, security management |
-
-### Additional Features
-
-- **Authentication & Security**: Secure JWT-based authentication with bcrypt password hashing
-- **Real-Time Engagement Tracking**: Automatic metrics for downloads, views, and interactions
-- **Dark Mode**: Eye-friendly interface for extended learning sessions
-- **Responsive Design**: Seamless experience across desktop, tablet, and mobile devices
-- **User Profiles**: Customizable avatars, progress badges, and achievement tracking
-
----
-
-## Tech Stack
 
 ### Frontend Technologies
 
-| Technology | Purpose | Version |
-|-----------|---------|---------|
-| **React** | UI Framework & Component Architecture | 19.1.1 |
-| **Vite** | Lightning-fast build tool & dev server | 7.1.2 |
-| **React Router** | Client-side routing & navigation | 7.9.4 |
-| **TailwindCSS** | Utility-first CSS styling | 4.1.12 |
-| **Cytoscape.js** | Graph visualization for automata states | 3.33.1 |
-| **D3.js** | Advanced data visualization & animations | 7.9.0 |
-| **Chart.js** | Interactive analytics & performance charts | 4.5.1 |
-| **Lucide React** | Modern icon library | 0.540.0 |
-| **Axios** | HTTP client for API communication | 1.12.2 |
-| **React Spring** | Smooth animations & transitions | 10.0.1 |
-| **React YouTube** | YouTube video embedding | 10.1.0 |
+| Technology | Description |
+|------------|-------------|
+| **React** | Component-based UI library for building interfaces |
+| **Vite** | Fast build tool and development server |
+| **Tailwind CSS** | Utility-first CSS framework for styling |
+| **React Router** | Declarative routing for React applications |
+| **Axios** | Promise-based HTTP client for API requests |
+| **Chart.js** | Simple yet flexible JavaScript charting library |
+| **Cytoscape** | Graph theory library for visualization |
+| **D3.js** | Data visualization library for interactive graphics |
+
 
 ### Backend Technologies
 
-| Technology | Purpose | Version |
-|-----------|---------|---------|
-| **Node.js** | JavaScript runtime environment | 16+ |
-| **Express.js** | Web framework for REST API | 4.18.2 |
-| **MongoDB** | NoSQL database | 8.0.0 |
-| **Mongoose** | MongoDB object modeling | 8.0.0 |
-| **JWT (jsonwebtoken)** | Secure authentication tokens | 9.0.2 |
-| **Bcryptjs** | Password hashing & security | 2.4.3 |
-| **Multer** | File upload handling | 2.0.2 |
-| **Cloudinary** | Cloud storage for PDFs & media | 2.7.0 |
-| **CORS** | Cross-origin resource sharing | 2.8.5 |
-| **Express Validator** | Input validation & sanitization | 7.0.1 |
+| Technology | Description |
+|------------|-------------|
+| **Node.js** | Server-side JavaScript runtime environment |
+| **Express.js** | Fast, unopinionated web framework for Node.js |
+| **MongoDB** | NoSQL document database for flexible data storage |
+| **JWT** | JSON Web Tokens for secure authentication |
+| **bcrypt** | Password hashing library for security |
+| **Cloudinary** | Cloud-based media management platform |
+| **Multer** | Middleware for handling file uploads |
 
-### Infrastructure & Data
 
-- **Supabase**: Optional cloud database integration for scalability
-- **Cloudinary**: Cloud storage for learning resources and documents
-- **MongoDB Atlas**: Production-grade cloud database hosting (recommended)
+### Deployment & Development Tools
 
-### Development Tools
+| Technology | Description |
+|------------|-------------|
+| **Vite** | Fast build tool and development server |
+| **Vercel** | Cloud platform for serverless deployment |
+| **ESLint** | Tool for identifying and fixing code issues |
 
-- **ESLint**: Code quality & consistency
-- **Nodemon**: Development server auto-reload
-- **PostCSS**: CSS preprocessing
-- **Autoprefixer**: Browser compatibility
 
----
 
-## Demo & Preview
+<a name="key-features"></a>
+## ✨ Key Features
 
-### Live Demo
+BrainCell packs powerful features to create an unparalleled learning experience:
 
-🚀 **[Visit the Live Platform](https://automata-learning.example.com)** *(Replace with actual deployment URL)*
+### 🔐 **Authentication & Security**
+- **Multi-Role System**: Dedicated interfaces for Students, Instructors, and Administrators
+- **JWT-Based Security**: Secure authentication with encrypted passwords
+- **Role-Based Access Control**: Granular permissions for different user types
 
-### User Access Examples
+### 📚 **Learning Management**
+- **Comprehensive Subject Library**: Engineering subjects from Computer Science to Mechanical Engineering
+- **Structured Lesson Plans**: Progressive learning with videos, text, and interactive elements
+- **Progress Tracking**: Detailed analytics on lesson completion and time spent
+- **Bookmarking & Notes**: Save important concepts and add personal annotations
 
-```
-👤 Student Credentials
-Email: student@example.com
-Password: password123
-Role: Student (Full learning & challenge access)
+### 🎯 **Interactive Challenges**
+- **Diverse Question Types**: Multiple choice, coding problems, and practical exercises
+- **Real-Time Scoring**: Instant feedback on challenge submissions
+- **Leaderboards**: Compete with peers and track rankings
+- **Challenge Analytics**: Performance metrics and improvement suggestions
 
-👨‍🏫 Instructor Credentials
-Email: instructor@example.com
-Password: password123
-Role: Instructor (Content creation & management)
+### 📖 **Resource Hub**
+- **Digital Library**: PDFs, templates, cheat sheets, and reference materials
+- **File Upload System**: Cloud-based storage with Cloudinary integration
+- **Search & Filter**: Easy discovery of relevant resources
+- **Version Control**: Track updates to shared documents
 
-🔐 Admin Credentials
-Email: admin@example.com
-Password: password123
-Role: Admin (System administration)
-```
+### 🎮 **Advanced Playgrounds**
+- **Automata Simulations**: DFA, NFA, Turing Machines, PDA, and Chomsky Hierarchy
+- **Conversion Tools**: Regex to DFA, Mealy to Moore transformations
+- **Interactive Visualizations**: Graph-based representations with Cytoscape and D3.js
+- **Step-by-Step Execution**: Debug and understand complex algorithms
 
-### Feature Showcase
+### 🤖 **AI Assistance**
+- **Intelligent Chatbot**: Context-aware help for subject-related queries
+- **24/7 Support**: Instant answers to common questions
+- **Personalized Recommendations**: Suggested resources based on learning patterns
 
-- **Student Dashboard**: View your progress, active challenges, and personalized recommendations
-- **Interactive Playgrounds**: Build automata from scratch, step through simulations, and visualize state transitions
-- **Challenge Interface**: Solve multiple-choice problems with instant feedback and detailed explanations
-- **Resource Library**: Browse, search, and download learning materials organized by topic
-- **Admin Analytics**: Monitor platform metrics, user engagement, and system health in real-time
+### 📊 **Analytics Dashboard**
+- **Student Metrics**: Completion rates, time analytics, and skill assessments
+- **Instructor Insights**: Class performance, student engagement, and content effectiveness
+- **Admin Overview**: System usage, user management, and platform health
+- **Visual Reports**: Charts and graphs powered by Chart.js
 
----
+### 🎥 **Multimedia Content**
+- **Video Integration**: YouTube embeds for lectures and tutorials
+- **FAQ System**: Community-driven knowledge base
+- **Rich Text Editor**: Create engaging content with formatting options
 
-## Installation & Setup
+### 📱 **User Experience**
+- **Responsive Design**: Seamless experience on desktop, tablet, and mobile
+- **Dark/Light Themes**: Customizable interface with theme switching
+- **Intuitive Navigation**: Clean UI built with Tailwind CSS and Lucide icons
+- **Accessibility**: WCAG-compliant design for inclusive learning
 
-### Prerequisites
+<a name="live-demo"></a>
+## Live Demo
+
+Experience BrainCell in action! Visit our live demo at [https://braincell-campus.vercel.app](https://braincell-campus.vercel.app) to explore the platform without signing up.
+
+<a name="screenshots"></a>
+## Screenshots
+
+### Student Dashboard
+![Student Dashboard](../Brain/frontend/public/student.png)
+
+### Automata Playground
+![Automata Playground](../Brain/frontend/public/playground.png)
+
+### Challenge Interface
+![Challenge Interface](../Brain/frontend/public/challenges.png)
+
+*More screenshots coming soon. Screenshots are placeholders and will be updated with actual images.*
+
+<a name="quick-start"></a>
+## 🚀 Quick Start
+
+Follow these steps to get BrainCell running locally in minutes! ⚡
+
+### 📋 Prerequisites
 
 Before you begin, ensure you have the following installed:
 
-```bash
-✓ Node.js (v16 or higher)
-✓ npm (v8 or higher)
-✓ MongoDB (v4.4 or higher) - Local or MongoDB Atlas
-✓ Git
-```
+- **Node.js** (v16 or higher) - [Download here](https://nodejs.org/)
+- **MongoDB** (v4.4 or higher) - [Installation guide](https://docs.mongodb.com/manual/installation/)
+- **Git** - [Download here](https://git-scm.com/)
+- **npm** or **yarn** package manager
 
-### Step 1: Clone the Repository
+### 🛠️ Installation & Setup
 
-```bash
-git clone https://github.com/yourusername/automata-learning-platform.git
-cd automata-learning-platform
-```
+1. **Clone the Repository** 📥
+   ```bash
+   git clone https://github.com/Durgaprasad2408/BrainCell.git
+   cd braincell-learning-platform
+   ```
 
-### Step 2: Backend Setup
+2. **Backend Setup** 🔧
+   ```bash
+   cd backend
 
-```bash
-# Navigate to backend directory
-cd backend
+   # Install dependencies
+   npm install
 
-# Install dependencies
-npm install
+   # Create environment file
+   cp .env.example .env
 
-# Create .env file with required variables
-cat > .env << EOF
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/automata-simulator
-JWT_SECRET=your_secure_jwt_secret_key_here_change_in_production
-JWT_EXPIRE=7d
+   # Edit .env with your configuration
+   # Required: MONGODB_URI, JWT_SECRET, CLOUDINARY_CLOUD_NAME, etc.
+
+   # Seed initial data (optional)
+   npm run seed:subjects
+
+   # Start development server
+   npm run dev
+   ```
+   The backend will run on [http://localhost:5000](http://localhost:5000) 🚀
+
+3. **Frontend Setup** 🎨
+   ```bash
+   # Open new terminal and navigate to frontend
+   cd ../frontend
+
+   # Install dependencies
+   npm install
+
+   # Start development server
+   npm run dev
+   ```
+   The frontend will run on [http://localhost:5173](http://localhost:5173) 🌐
+
+4. **Access BrainCell** 🎉
+   - **Student Portal**: [http://localhost:5173](http://localhost:5173)
+   - **API Documentation**: [http://localhost:5000/api/health](http://localhost:5000/api/health)
+
+### 🔧 Environment Configuration
+
+Create a `.env` file in the `backend` directory with the following variables:
+
+```env
+# Database
+MONGODB_URI=mongodb://localhost:27017/braincell
 NODE_ENV=development
-CLOUDINARY_NAME=your_cloudinary_name
-CLOUDINARY_API_KEY=your_cloudinary_api_key
-CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+
+# Authentication
+JWT_SECRET=your-super-secure-jwt-secret-key-here
+JWT_EXPIRE=7d
+
+# Cloudinary (for file uploads)
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-api-key
+CLOUDINARY_API_SECRET=your-api-secret
+
+# Frontend URL
 CLIENT_URL=http://localhost:5173
-EOF
-
-# Start MongoDB (if running locally)
-# Windows: MongoDB runs as service
-# macOS: brew services start mongodb-community
-# Linux: sudo systemctl start mongod
-
-# Start the backend server
-npm start
-# Or for development with auto-reload:
-npm run dev
 ```
 
-### Step 3: Frontend Setup
+### 🐛 Troubleshooting
 
-```bash
-# Navigate to frontend directory (from project root)
-cd frontend
+**Common Issues & Solutions:**
 
-# Install dependencies
-npm install
+- **MongoDB Connection Error**: Ensure MongoDB is running (`mongod` command)
+- **Port Already in Use**: Change ports in `.env` or kill processes on ports 5000/5173
+- **CORS Issues**: Verify `CLIENT_URL` in backend `.env` matches frontend URL
+- **Build Errors**: Clear node_modules and reinstall: `rm -rf node_modules && npm install`
 
-# Create .env file with Supabase credentials (optional)
-cat > .env << EOF
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-VITE_API_URL=http://localhost:5000
-EOF
+### 📚 Additional Resources
 
-# Start the development server
-npm run dev
-# Frontend will be available at http://localhost:5173
-```
+- [Backend API Documentation](backend/README.md)
+- [Frontend Development Guide](frontend/README.md)
+- [Contributing Guidelines](CONTRIBUTING.md)
 
-### Step 4: Verify Installation
+<a name="use-cases"></a>
+## 🎯 Use Cases
 
-```bash
-# Test backend API health
-curl http://localhost:5000/api/health
-# Expected response: { "success": true, "message": "Server is running" }
+BrainCell serves diverse stakeholders in the engineering education ecosystem:
 
-# Frontend should be accessible at http://localhost:5173
-```
+### 👨‍🎓 **For Students**
+- **Self-Paced Learning**: Master complex engineering concepts at your own speed
+- **Interactive Practice**: Hone skills with hands-on simulations and challenges
+- **Progress Monitoring**: Track achievements and identify areas for improvement
+- **Peer Competition**: Engage in leaderboards and collaborative learning
+- **Career Preparation**: Build portfolios with completed projects and certifications
 
-### Environment Variables Reference
+### 👨‍🏫 **For Instructors**
+- **Content Creation**: Design comprehensive courses with multimedia elements
+- **Student Assessment**: Create and grade challenges with automated scoring
+- **Performance Analytics**: Monitor class progress and individual student metrics
+- **Resource Management**: Upload and organize teaching materials efficiently
+- **Community Building**: Foster engagement through interactive discussions
 
-**Backend (.env)**
-```
-PORT=5000                           # Backend server port
-MONGODB_URI=mongodb://...          # MongoDB connection string
-JWT_SECRET=your_secret_key         # For signing JWT tokens (use strong value)
-JWT_EXPIRE=7d                      # JWT token expiration
-NODE_ENV=development               # Environment (development/production)
-CLOUDINARY_NAME=cloudinary_name    # Cloudinary account name
-CLOUDINARY_API_KEY=api_key         # Cloudinary API key
-CLOUDINARY_API_SECRET=api_secret   # Cloudinary API secret
-CLIENT_URL=http://localhost:5173   # Frontend URL for CORS
-```
+### 👨‍💼 **For Administrators**
+- **User Management**: Oversee accounts, roles, and permissions across the platform
+- **System Monitoring**: Track usage patterns and platform performance
+- **Content Moderation**: Ensure quality and appropriateness of shared resources
+- **Analytics & Reporting**: Generate insights for institutional decision-making
+- **Scalability Planning**: Monitor growth and plan infrastructure needs
 
-**Frontend (.env)**
-```
-VITE_SUPABASE_URL=https://...             # Optional Supabase URL
-VITE_SUPABASE_ANON_KEY=...                # Optional Supabase key
-```
+### 🏫 **For Educational Institutions**
+- **Unified Learning Platform**: Centralize engineering education across departments
+- **Curriculum Integration**: Align platform content with academic standards
+- **Cost-Effective Scaling**: Deploy for large student populations affordably
+- **Data-Driven Insights**: Make informed decisions based on learning analytics
+- **Industry Partnerships**: Showcase student achievements to potential employers
 
-### Quick Start with Docker (Optional)
-
-```bash
-# Build and run with Docker Compose
-docker-compose up -d
-
-# Access services:
-# Frontend: http://localhost:5173
-# Backend: http://localhost:5000
-# MongoDB: localhost:27017
-```
-
----
-
+<a name="project-structure"></a>
 ## Project Structure
 
 ```
-automata-learning-platform/
-│
-├── frontend/                          # React + Vite frontend application
-│   ├── public/                        # Static assets & images
-│   │   ├── logo.png
-│   │   └── photo.jpg
+braincell-learning-platform/
+├── backend/                 # Node.js/Express server
+│   ├── config/              # Database and cloud configurations
+│   ├── controllers/         # API route handlers
+│   ├── middleware/          # Authentication and upload middleware
+│   ├── models/              # MongoDB schemas
+│   ├── routes/              # API endpoints
+│   ├── scripts/             # Utility scripts (e.g., seeding data)
+│   └── server.js            # Main server file
+├── frontend/                # React/Vite client
+│   ├── public/              # Static assets
 │   ├── src/
-│   │   ├── pages/                     # Route pages
-│   │   │   ├── Home.jsx               # Landing page
-│   │   │   ├── Login.jsx              # Authentication
-│   │   │   ├── Register.jsx
-│   │   │   ├── Profile.jsx
-│   │   │   ├── Students/              # Student role pages
-│   │   │   │   ├── Dashboard.jsx
-│   │   │   │   ├── Learning.jsx
-│   │   │   │   ├── Library.jsx
-│   │   │   │   ├── Practice.jsx
-│   │   │   │   ├── TakeChallenge.jsx
-│   │   │   │   ├── ChallengeResults.jsx
-│   │   │   │   └── Leaderboard.jsx
-│   │   │   ├── Playgrounds/           # Interactive simulators
-│   │   │   │   ├── DFAPlayground.jsx
-│   │   │   │   ├── NFAPlayground.jsx
-│   │   │   │   ├── PDAPlayground.jsx
-│   │   │   │   ├── TuringMachinePlayground.jsx
-│   │   │   │   ├── CFGPlayground.jsx
-│   │   │   │   ├── MealyMachinePlayground.jsx
-│   │   │   │   └── [9 more playground files]
-│   │   │   ├── admin/                 # Admin role pages
-│   │   │   │   ├── AdminDashboard.jsx
-│   │   │   │   ├── UserManagement.jsx
-│   │   │   │   ├── ChallengeManagement.jsx
-│   │   │   │   ├── LibraryManagement.jsx
-│   │   │   │   └── Statistics.jsx
-│   │   │   └── Instructor/            # Instructor role pages
-│   │   │       ├── InstructorDashboard.jsx
-│   │   │       ├── ChallengeManagement.jsx
-│   │   │       └── LearningContentManagement.jsx
-│   │   ├── components/                # Reusable React components
-│   │   │   ├── Navbar.jsx
-│   │   │   ├── StudentLayout.jsx
-│   │   │   ├── AdminLayout.jsx
-│   │   │   ├── PlaygroundLayout.jsx
-│   │   │   ├── ChatbotWindow.jsx
-│   │   │   ├── VisualizationPanel.jsx
-│   │   │   └── [15+ more components]
-│   │   ├── contexts/                  # React context providers
-│   │   │   ├── AuthContext.jsx        # Authentication state
-│   │   │   └── ThemeContext.jsx       # Dark mode state
-│   │   ├── api/                       # API service functions
-│   │   │   ├── lessonService.js
-│   │   │   ├── challengeService.js
-│   │   │   ├── resourceService.js
-│   │   │   ├── subjectService.js
-│   │   │   ├── faqService.js
-│   │   │   └── chatbotService.js
-│   │   ├── utils/                     # Utility functions
-│   │   │   ├── automataUtils.js       # DFA/NFA simulation logic
-│   │   │   ├── visualizationUtils.js  # Graph rendering
-│   │   │   └── youtubeUtils.js
-│   │   ├── App.jsx                    # Main app component with routing
-│   │   ├── main.jsx                   # React entry point
-│   │   └── index.css                  # Global styles
-│   ├── vite.config.js                 # Vite configuration
-│   ├── package.json                   # Frontend dependencies
-│   └── README.md
-│
-├── backend/                           # Express.js backend API
-│   ├── config/
-│   │   ├── db.js                      # MongoDB connection setup
-│   │   └── cloudinary.js              # Cloudinary configuration
-│   ├── controllers/                   # Business logic handlers
-│   │   ├── authController.js          # Login/Register/Token
-│   │   ├── lessonController.js
-│   │   ├── challengeController.js
-│   │   ├── resourceController.js
-│   │   ├── subjectController.js
-│   │   └── faqController.js
-│   ├── models/                        # Database schemas (MongoDB)
-│   │   ├── User.js                    # User accounts & roles
-│   │   ├── Challenge.js               # Challenge questions & metadata
-│   │   ├── ChallengeSubmission.js      # Student attempt records
-│   │   ├── Lesson.js                  # Learning content
-│   │   ├── Subject.js                 # Course subjects
-│   │   ├── Resource.js                # Learning materials
-│   │   └── FAQ.js                     # FAQs
-│   ├── routes/                        # API endpoint definitions
-│   │   ├── auth.js
-│   │   ├── challenges.js
-│   │   ├── resources.js
-│   │   ├── subjects.js
-│   │   ├── lessons.js
-│   │   └── faqs.js
-│   ├── middleware/
-│   │   ├── auth.js                    # JWT verification middleware
-│   │   └── upload.js                  # Multer file upload setup
-│   ├── utils/
-│   │   └── avatarGenerator.js         # Generate user avatars
-│   ├── scripts/
-│   │   └── seedSubjects.js            # Database seeding
-│   ├── server.js                      # Express app initialization
-│   ├── package.json                   # Backend dependencies
-│   └── README.md
-│
-├── .env                               # Environment variables
-├── package-lock.json
-└── README.md                          # This file
+│   │   ├── components/      # Reusable UI components
+│   │   ├── contexts/        # React contexts (Auth, Theme)
+│   │   ├── pages/           # Page components
+│   │   ├── utils/           # Helper functions and utilities
+│   │   └── App.jsx          # Main app component
+│   └── vite.config.js       # Vite configuration
+└── README.md                # Project documentation
 ```
 
----
+<a name="roadmap"></a>
+## 🗺️ Roadmap
 
-## Usage
+BrainCell is evolving rapidly! Here's our development roadmap with planned features and improvements:
 
-### For Students
+### 🚀 Q1 2025 - Enhanced Learning Experience
+- [ ] **Gamification System**: Badges, achievements, and reward points
+- [ ] **Advanced Quiz Builder**: Drag-and-drop question creation with multimedia support
+- [ ] **Real-time Collaboration**: Live coding sessions and group problem-solving
+- [ ] **Mobile Responsiveness**: Optimized mobile experience with PWA features
 
-**Step 1: Register & Login**
-```bash
-1. Visit http://localhost:5173
-2. Click "Register" and create account
-3. Login with your credentials
-4. You'll be redirected to Student Dashboard
-```
+### 📚 Q2 2025 - Content Expansion
+- [ ] **Expanded Subject Library**: Mechanical Engineering, Electrical Engineering, Civil Engineering modules
+- [ ] **Video Lecture Series**: Integrated video content with interactive timestamps
+- [ ] **Resource Marketplace**: User-generated content sharing and rating system
+- [ ] **Multi-language Support**: Localization for global accessibility
 
-**Step 2: Explore Learning Resources**
-```bash
-Dashboard → Learning
-- Browse available subjects (DFA, NFA, Turing Machines, etc.)
-- Click on subject to view lessons
-- Read lesson content and watch embedded videos
-- Track your progress with lesson checkpoints
-```
+### 🤖 Q3 2025 - AI & Analytics
+- [ ] **AI Tutor Enhancement**: Machine learning-powered personalized learning paths
+- [ ] **Predictive Analytics**: Early warning system for at-risk students
+- [ ] **Automated Assessment**: AI-driven grading for coding challenges
+- [ ] **Learning Path Recommendations**: Smart content suggestions based on performance
 
-**Step 3: Practice with Interactive Playgrounds**
-```bash
-Dashboard → Playgrounds
-- Select a playground (e.g., "DFA Simulator")
-- Define states, alphabet, and transitions
-- Input test strings and see real-time visualization
-- Step through execution or run in animation mode
-- Download or print results for study notes
-```
+### 🌐 Q4 2025 - Platform Integration
+- [ ] **LMS Integration**: Seamless connection with Moodle, Canvas, and Blackboard
+- [ ] **API Ecosystem**: Third-party integrations for tools like GitHub, VS Code
+- [ ] **Enterprise Features**: SSO, bulk user management, and custom branding
+- [ ] **Offline Mode**: Downloadable content packages for offline learning
 
-**Step 4: Practice with Challenges**
-```bash
-Dashboard → Practice
-- Browse daily and weekly challenges
-- Select challenge and read description
-- Answer multiple-choice questions
-- Get instant feedback with explanations
-- View performance analytics and leaderboard rankings
-```
+### 📱 2026 - Mobile & Global Expansion
+- [ ] **Native Mobile Apps**: iOS and Android applications with native features
+- [ ] **Cross-Platform Sync**: Seamless data synchronization across devices
+- [ ] **Global Community**: Multi-region deployment with localized content
+- [ ] **VR/AR Integration**: Immersive learning experiences for complex concepts
 
-**Step 5: Access Learning Library**
-```bash
-Dashboard → Library
-- Download notes and GATE papers by topic
-- Watch video tutorials
-- Access external learning resources
-- Track engagement metrics
-```
+### 🔮 Future Vision
+- **Metaverse Learning**: Virtual classrooms and collaborative spaces
+- **Blockchain Credentials**: Decentralized skill verification and certifications
+- **AI Research Integration**: Cutting-edge research directly accessible to students
 
-### For Instructors
+**Stay tuned for updates!** Follow our [GitHub repository](https://github.com/Durgaprasad2408/BrainCell) for the latest developments.
 
-**Create Learning Content**
-```bash
-Instructor → Learning Content Management
-1. Create new subjects with descriptions
-2. Add lessons with objectives and content
-3. Embed YouTube videos for explanations
-4. Set learning paths and prerequisites
-```
-
-**Manage Challenges**
-```bash
-Instructor → Challenge Management
-1. Create daily/weekly challenges
-2. Define questions with multiple options
-3. Set difficulty levels and point values
-4. Publish or save as draft
-5. Monitor student attempts and performance
-```
-
-**Upload Resources**
-```bash
-Instructor → Library Management
-1. Upload PDF notes and GATE papers
-2. Add video links and external resources
-3. Organize by category and difficulty
-4. Track engagement and downloads
-```
-
-### For Administrators
-
-**System Administration**
-```bash
-Admin → Dashboard
-- Monitor overall platform metrics
-- Track user registration trends
-- View system health and performance
-```
-
-**User Management**
-```bash
-Admin → User Management
-- View all registered users
-- Promote users to instructor or admin roles
-- Manage user accounts and reset passwords
-```
-
-**Content Oversight**
-```bash
-Admin → Library & Challenge Management
-- Review and approve instructor-created content
-- Manage resource publication status
-- Monitor engagement metrics
-```
-
----
-
-## API Endpoints Overview
-
-### Authentication
-
-```
-POST   /api/auth/register       - Create new user account
-POST   /api/auth/login          - Authenticate user & receive JWT
-POST   /api/auth/logout         - Invalidate session
-GET    /api/auth/me             - Get current authenticated user
-PUT    /api/auth/profile        - Update user profile
-```
-
-### Subjects & Learning
-
-```
-GET    /api/subjects            - List all subjects
-GET    /api/subjects/:id        - Get subject details
-POST   /api/subjects            - Create subject (Instructor/Admin)
-PUT    /api/subjects/:id        - Update subject
-DELETE /api/subjects/:id        - Delete subject
-
-GET    /api/lessons             - List lessons
-GET    /api/lessons/:id         - Get lesson content
-POST   /api/lessons             - Create lesson (Instructor/Admin)
-```
-
-### Challenges
-
-```
-GET    /api/challenges          - List all challenges
-GET    /api/challenges/:id      - Get challenge questions
-POST   /api/challenges          - Create challenge (Instructor/Admin)
-POST   /api/challenges/:id/submit - Submit challenge attempt
-GET    /api/challenges/:id/leaderboard - Get challenge rankings
-```
-
-### Resources (Library)
-
-```
-GET    /api/resources           - List library resources
-GET    /api/resources/:id       - Get resource details
-POST   /api/resources           - Upload resource (Instructor/Admin)
-GET    /api/resources/:id/download - Get download URL
-DELETE /api/resources/:id       - Delete resource
-```
-
-### Health & System
-
-```
-GET    /api/health              - Server status check
-```
-
----
-
-## Screenshots
-
-*Add screenshots here showing key features. Replace `[screenshot_url]` with actual image paths or URLs:*
-
-### Student Dashboard
-![Student Dashboard](./frontend/public/screenshots/dashboard.png)
-
-### DFA Playground Simulator
-![DFA Playground](./frontend/public/screenshots/dfa-playground.png)
-
-### Challenge Interface
-![Challenge Interface](./frontend/public/screenshots/challenge.png)
-
-### Resource Library
-![Resource Library](./frontend/public/screenshots/library.png)
-
-### Admin Statistics
-![Admin Analytics](./frontend/public/screenshots/admin-stats.png)
-
----
-
-## Key Concepts Explained
-
-### What is Theory of Computation?
-
-Theory of Computation is the mathematical study of computation, focusing on what problems can be solved using computers and the resources required to solve them. It covers:
-
-- **Automata Theory**: Models of computation (DFA, NFA, PDA, Turing Machines)
-- **Formal Languages**: Properties and classifications of languages
-- **Computability**: What problems are solvable and what aren't
-- **Complexity**: How efficiently problems can be solved
-
-### Interactive Simulators
-
-This platform provides visual simulations that help you understand:
-
-1. **State Transitions**: Watch how automata move between states
-2. **Input Processing**: See how strings are accepted or rejected
-3. **Conversions**: Understand transformations between automata types
-4. **Visualization**: Graph representations of complex state machines
-
-### Learning Path
-
-```
-Start Here
-    ↓
-Learn Fundamentals (DFA, NFA)
-    ↓
-Practice with Playgrounds
-    ↓
-Take Challenges
-    ↓
-Advance to Complex Topics (PDA, Turing)
-    ↓
-Master Advanced Conversions
-    ↓
-Achieve Proficiency!
-```
-
----
-
+<a name="contributing"></a>
 ## Contributing
 
-We welcome contributions from students, educators, and developers! Here's how you can help:
+We welcome contributions from the community! To get started:
 
-### Getting Started
+1. Fork the repository.
+2. Create a feature branch: `git checkout -b feature/your-feature-name`.
+3. Make your changes and commit: `git commit -m 'Add some feature'`.
+4. Push to the branch: `git push origin feature/your-feature-name`.
+5. Open a pull request.
 
-1. **Fork the repository**
-   ```bash
-   Click the "Fork" button on GitHub
-   ```
+Please read our [contributing guidelines](CONTRIBUTING.md) for more details on code standards and submission processes.
 
-2. **Clone your fork**
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/automata-learning-platform.git
-   cd automata-learning-platform
-   ```
+<a name="contact"></a>
+## 📞 Contact
 
-3. **Create a feature branch**
-   ```bash
-   git checkout -b feature/your-feature-name
-   # or
-   git checkout -b fix/bug-description
-   ```
+Get in touch with the BrainCell team! We're always excited to hear from fellow educators, developers, and learners.
 
-4. **Make your changes**
-   - Follow existing code style and conventions
-   - Add comments for complex logic
-   - Test your changes thoroughly
+### 👥 Development Team
 
-5. **Commit your changes**
-   ```bash
-   git add .
-   git commit -m "Add descriptive commit message"
-   ```
+- **Lead Developer**: Durga Prasad Pandiripalli (Full-Stack Engineer)
+- **UI/UX Designer**: [Team Member Name]
+- **Backend Specialist**: [Team Member Name]
+- **Frontend Developer**: [Team Member Name]
 
-6. **Push to your fork**
-   ```bash
-   git push origin feature/your-feature-name
-   ```
+#### **Durga Prasad Pandiripalli - Lead Developer & Architect**
+- **Email**: durgaprasad.p@outlook.in
+- **LinkedIn**: [linkedin.com/in/durga-prasad-pandiripalli-5b97ab264](https://www.linkedin.com/in/durga-prasad-pandiripalli-5b97ab264)
+- **GitHub**: [github.com/Durgaprasad2408](https://github.com/Durgaprasad2408)
+- **Portfolio**: [durgaprasadpandiripalli.me](https://www.durgaprasadpandiripalli.me)
 
-7. **Create a Pull Request**
-   - Go to the original repository
-   - Click "New Pull Request"
-   - Describe your changes and why they're needed
-   - Link any related issues
 
-### What We're Looking For
+### 🌐 **Project Links**
+- **Website**: [https://braincell-campus.vercel.app](https://braincell-campus.vercel.app)
+- **GitHub Repository**: [https://github.com/Durgaprasad2408/BrainCell](https://github.com/Durgaprasad2408/BrainCell)
 
-- **Bug Fixes**: Found a bug? Report it or submit a fix
-- **New Playgrounds**: Contribute simulators for new automata types
-- **UI/UX Improvements**: Enhance the user interface and experience
-- **Documentation**: Help improve guides and tutorials
-- **Accessibility**: Make the platform more inclusive
-- **Performance**: Optimize code and database queries
-- **Tests**: Add unit and integration tests
+### 💬 Support
 
-### Code Style Guidelines
+- **Bug Reports**: [GitHub Issues](https://github.com/Durgaprasad2408/BrainCell/issues)
+- **Feature Requests**: [GitHub Discussions](https://github.com/Durgaprasad2408/BrainCell/discussions)
+- **General Inquiries**: durgaprasad.p@outlook.in
 
-- **Frontend**: Follow React best practices, use functional components with hooks
-- **Backend**: Use ES6+ syntax, maintain consistent naming conventions
-- **Comments**: Add meaningful comments for non-obvious code sections
-- **Variables**: Use descriptive names (avoid single letters except for loops)
 
-### Branch Naming
+<a name="license"></a>
+## 📜 License
 
-```
-feature/feature-name          - New features
-fix/bug-description           - Bug fixes
-docs/documentation-update     - Documentation updates
-refactor/component-name       - Code refactoring
-test/test-description         - Tests and test improvements
-```
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-### Commit Message Format
+<a name="credits"></a>
+## 🙏 Credits & Acknowledgments
 
-```
-[Type]: Brief description (50 chars max)
+BrainCell wouldn't be possible without the incredible support of our community and the open-source ecosystem:
 
-Optional detailed description explaining the why and what.
-- Use bullet points for multiple changes
-- Reference issue numbers with # (e.g., "Fixes #123")
-```
+### 👥 **Core Development Team**
+- **Durga Prasad Pandiripalli**: Lead Developer & Architect
+- **Open Source Contributors**: Thank you to all who have contributed code, bug reports, and feature suggestions
 
-**Types:**
-- `feat:` New feature
-- `fix:` Bug fix
-- `docs:` Documentation
-- `style:` Code style (formatting, missing semicolons, etc.)
-- `refactor:` Code refactoring
-- `test:` Adding or updating tests
-- `perf:` Performance improvements
+### 🛠️ **Technology Partners**
+- **React Community**: For the amazing frontend framework that powers our interactive UI
+- **Node.js & Express**: The robust backend foundation
+- **MongoDB**: Flexible and scalable data storage
+- **Vercel**: Seamless deployment and hosting
+- **Cloudinary**: Reliable media management
 
-### Issue Reporting
+### 🎨 **Design & UX**
+- **Tailwind CSS**: Utility-first styling that keeps our UI clean and responsive
+- **Lucide Icons**: Beautiful, consistent iconography
+- **Chart.js & Cytoscape**: Powerful visualization libraries
 
-Found a problem? Open an issue:
+### 📚 **Educational Inspiration**
+- **Computer Science Educators**: Pioneers in automata theory and algorithm visualization
+- **Engineering Community**: For pushing the boundaries of interactive learning
+- **Students Worldwide**: Your feedback drives our continuous improvement
 
-1. **Check existing issues** to avoid duplicates
-2. **Use clear titles**: "Login not working for instructors" instead of "Bug"
-3. **Provide steps to reproduce** the issue
-4. **Include screenshots** if applicable
-5. **List your environment**: Browser, OS, Node version, etc.
-
-### Community Guidelines
-
-- Be respectful and inclusive to all contributors
-- Provide constructive feedback on PRs
-- Help other developers with questions
-- Share knowledge and best practices
-- Report security vulnerabilities privately
+### 🌟 **Special Thanks**
+To all beta testers, early adopters, and the amazing engineering education community for believing in our vision!
 
 ---
 
-## License
+## 🎓 Ready to Transform Your Learning?
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+**Join BrainCell today and experience the future of engineering education!** 🚀
 
-### Summary
+- 🌐 Visit [braincell-campus.vercel.app](https://braincell-campus.vercel.app)
+- 📧 Contact us at durgaprasad.p@outlook.in
+- 🐛 Report issues on [GitHub](https://github.com/Durgaprasad2408/BrainCell/issues)
 
-You are free to:
-- Use this project commercially or privately
-- Modify and distribute the code
-- Include it in proprietary applications
-
-With the conditions:
-- Include a copy of the license
-- Include copyright notice
-- State changes made to the code
-
----
-
-## Acknowledgements
-
-### Built With
-
-We're grateful to the incredible open-source community:
-
-- **React Team** - For the powerful UI framework
-- **Cytoscape.js** - For amazing graph visualization capabilities
-- **D3.js** - For interactive data visualization
-- **MongoDB** - For reliable NoSQL database
-- **Express.js** - For the robust web framework
-- **Tailwind CSS** - For utility-first styling
-- **Vite Team** - For lightning-fast development experience
-
-### Contributors
-
-Special thanks to everyone who has contributed to this project:
-- Bug reporters and feature requesters
-- Code contributors and reviewers
-- Documentation writers
-- Educators and students who shaped the platform
-
-### Inspiration
-
-This platform was inspired by the need to make Theory of Computation more accessible and interactive. We believe visual learning combined with hands-on practice creates the best understanding of complex concepts.
-
----
-
-## Contact & Support
-
-### Developer
-
-**Your Name / Team Name**
-
-- **GitHub**: [@yourusername](https://github.com/yourusername)
-- **Email**: your.email@example.com
-- **Portfolio**: [your-portfolio.com](https://your-portfolio.com)
-- **LinkedIn**: [linkedin.com/in/yourprofile](https://linkedin.com/in/yourprofile)
-
-### Get Help
-
-- **Documentation**: Check the [docs](./docs) folder
-- **Issues**: [Report bugs on GitHub](https://github.com/yourusername/automata-learning-platform/issues)
-- **Discussions**: [Join community discussions](https://github.com/yourusername/automata-learning-platform/discussions)
-- **Email Support**: Send questions to your.email@example.com
-
-### Connect With Us
-
-- **Twitter**: [@handle](https://twitter.com/handle)
-- **Discord**: [Join our community server]
-- **Blog**: [Read our articles](#)
-
----
-
-<div align="center">
-
----
-
-## Show Your Support
-
-If you found this platform helpful, consider:
-
-- ⭐ **Starring the repository** on GitHub
-- 📢 **Sharing** with friends and colleagues
-- 🐛 **Reporting issues** you encounter
-- 💡 **Contributing** improvements and features
-- 💬 **Providing feedback** for enhancements
-
----
-
-### Made with ❤️ for Theory of Computation Learners
-
-```
-╔════════════════════════════════════════════════════════╗
-║                                                        ║
-║  Build automata. Master complexity. Change the way    ║
-║  the world learns Theory of Computation.              ║
-║                                                        ║
-║  Together, we make learning better. Together.         ║
-║                                                        ║
-╚════════════════════════════════════════════════════════╝
-```
-
-**[↑ Back to Top](#automata-theory-learning-platform)**
-
----
-
-*Last Updated: November 2024*
-
-*This project is maintained with love by developers passionate about education and computer science.*
-
-</div>
+*Happy Learning! 🎯*

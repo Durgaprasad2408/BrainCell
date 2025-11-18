@@ -2,7 +2,7 @@ import React from 'react';
 
 const ChallengeTabs = ({ activeTab, setActiveTab, isDark }) => {
   const tabs = [
-    { id: 'upcoming', label: 'Upcoming Challenges' },
+    { id: 'upcoming', label: 'Upcoming' },
     { id: 'live', label: 'Live' },
     { id: 'completed', label: 'Completed' }
   ];

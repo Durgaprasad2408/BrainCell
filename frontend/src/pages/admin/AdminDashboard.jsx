@@ -135,6 +135,7 @@ const ChartDisplay = ({ chartType, isDark }) => {
       y: {
         ticks: {
           color: isDark ? '#9ca3af' : '#4b5563',
+          precision: 0,
         },
         grid: {
           color: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
@@ -308,18 +309,17 @@ const AdminDashboard = () => {
                   : (isDark ? 'hover:border-gray-600' : 'hover:border-gray-300')
               }`}
             >
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-4">
                 <div className={`p-3 rounded-lg ${getColorClasses(stat.color)}`}>
                   <Icon className="w-6 h-6" />
                 </div>
-                {/* Removed static 'change' text */}
+                <h3 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                  {loading ? <Loader className="w-6 h-6 animate-spin" /> : stat.value}
+                </h3>
+                <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                  {stat.label}
+                </p>
               </div>
-              <h3 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'} mb-1`}>
-                {loading ? <Loader className="w-6 h-6 animate-spin" /> : stat.value}
-              </h3>
-              <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                {stat.label}
-              </p>
             </div>
           );
         })}
