@@ -7,6 +7,9 @@ const SubjectSelector = ({
   onSelectSubject,
   isDark,
   showActions = false,
+  showViewUsers = false,
+  showEditSubject = false,
+  showDeleteSubject = false,
   onViewUsers,
   onEditSubject,
   onDeleteSubject,
@@ -58,44 +61,50 @@ const SubjectSelector = ({
               {subject.lessons} lessons · {subject.students} students
             </div>
           </button>
-          {showActions && (
+          {(showActions || showViewUsers || showEditSubject || showDeleteSubject) && (
             <div className={`absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity`}>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onViewUsers(subject);
-                }}
-                className={`p-1.5 rounded-lg ${
-                  isDark ? 'bg-gray-700 hover:bg-gray-600 text-gray-300' : 'bg-white hover:bg-gray-100 text-gray-600'
-                } shadow-sm`}
-                title="View Subject Users"
-              >
-                <Eye className="w-4 h-4" />
-              </button>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onEditSubject(subject);
-                }}
-                className={`p-1.5 rounded-lg ${
-                  isDark ? 'bg-gray-700 hover:bg-gray-600 text-gray-300' : 'bg-white hover:bg-gray-100 text-gray-600'
-                } shadow-sm`}
-                title="Edit Subject"
-              >
-                <Edit className="w-4 h-4" />
-              </button>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onDeleteSubject(subject);
-                }}
-                className={`p-1.5 rounded-lg ${
-                  isDark ? 'bg-red-900/50 hover:bg-red-900 text-red-400' : 'bg-red-50 hover:bg-red-100 text-red-600'
-                } shadow-sm`}
-                title="Delete Subject"
-              >
-                <Trash2 className="w-4 h-4" />
-              </button>
+              {showViewUsers && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onViewUsers(subject);
+                  }}
+                  className={`p-1.5 rounded-lg ${
+                    isDark ? 'bg-gray-700 hover:bg-gray-600 text-gray-300' : 'bg-white hover:bg-gray-100 text-gray-600'
+                  } shadow-sm`}
+                  title="View Subject Users"
+                >
+                  <Eye className="w-4 h-4" />
+                </button>
+              )}
+              {showEditSubject && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onEditSubject(subject);
+                  }}
+                  className={`p-1.5 rounded-lg ${
+                    isDark ? 'bg-gray-700 hover:bg-gray-600 text-gray-300' : 'bg-white hover:bg-gray-100 text-gray-600'
+                  } shadow-sm`}
+                  title="Edit Subject"
+                >
+                  <Edit className="w-4 h-4" />
+                </button>
+              )}
+              {showDeleteSubject && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDeleteSubject(subject);
+                  }}
+                  className={`p-1.5 rounded-lg ${
+                    isDark ? 'bg-red-900/50 hover:bg-red-900 text-red-400' : 'bg-red-50 hover:bg-red-100 text-red-600'
+                  } shadow-sm`}
+                  title="Delete Subject"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              )}
             </div>
           )}
         </div>

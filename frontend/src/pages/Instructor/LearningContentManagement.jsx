@@ -216,7 +216,7 @@ const LearningContentManagement = () => {
             selectedSubject={selectedSubject}
             onSelectSubject={setSelectedSubject}
             isDark={isDark}
-            showActions={false}
+            showViewUsers={true}
             onViewUsers={(subject) => navigate(`/instructor/learning/users/${encodeURIComponent(subject.name)}`)}
             loading={loading}
           />
