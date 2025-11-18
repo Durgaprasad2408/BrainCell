@@ -149,15 +149,14 @@ Experience BrainCell in action! Visit our live demo at [https://braincell-campus
 ## Screenshots
 
 ### Student Dashboard
-![Student Dashboard](../Brain/frontend/public/student.png)
+![Student Dashboard](frontend/public/student.png)
 
 ### Automata Playground
-![Automata Playground](../Brain/frontend/public/playground.png)
+![Automata Playground](frontend/public/playground.png)
 
 ### Challenge Interface
-![Challenge Interface](../Brain/frontend/public/challenges.png)
+![Challenge Interface](frontend/public/challenges.png)
 
-*More screenshots coming soon. Screenshots are placeholders and will be updated with actual images.*
 
 <a name="quick-start"></a>
 ## 🚀 Quick Start
