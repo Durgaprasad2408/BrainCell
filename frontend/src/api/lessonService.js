@@ -31,12 +31,16 @@ export const getAllLessons = async (filters = {}) => {
   if (filters.type) params.append('type', filters.type);
   if (filters.search) params.append('search', filters.search);
 
-  const response = await axios.get(`${API_URL}/lessons?${params.toString()}`);
+  const response = await axios.get(`${API_URL}/lessons?${params.toString()}`, {
+    headers: getAuthHeader()
+  });
   return response.data;
 };
 
 export const getLessonById = async (id) => {
-  const response = await axios.get(`${API_URL}/lessons/${id}`);
+  const response = await axios.get(`${API_URL}/lessons/${id}`, {
+    headers: getAuthHeader()
+  });
   return response.data;
 };
 

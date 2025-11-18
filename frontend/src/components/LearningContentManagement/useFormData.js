@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const useFormData = (initialSubject = '') => {
   const [formData, setFormData] = useState({
@@ -8,6 +8,13 @@ const useFormData = (initialSubject = '') => {
     duration: '',
     subject: initialSubject
   });
+
+  // Update subject when initialSubject changes
+  useEffect(() => {
+    if (initialSubject) {
+      setFormData(prev => ({ ...prev, subject: initialSubject }));
+    }
+  }, [initialSubject]);
 
   const [contentCards, setContentCards] = useState([]);
   const [currentCard, setCurrentCard] = useState({
@@ -70,7 +77,7 @@ const useFormData = (initialSubject = '') => {
       const numericValue = value.replace(/\D/g, '');
       setFormData(prev => ({
         ...prev,
-        [name]: numericValue ? `${numericValue} min` : ''
+        [name]: numericValue ? parseInt(numericValue) : ''
       }));
     } else {
       setFormData(prev => ({

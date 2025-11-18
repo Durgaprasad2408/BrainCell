@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { Download, Plus, Search } from 'lucide-react';
 import SubjectSelector from '../../components/LearningContentManagement/SubjectSelector';
 import LessonTable from '../../components/LearningContentManagement/LessonTable';
 import LessonFormModal from '../../components/LearningContentManagement/LessonFormModal';
@@ -22,7 +23,7 @@ const LearningContentManagement = () => {
 
   // Use custom hooks
   const { subjects, loading: subjectsLoading, error: subjectsError } = useInstructorSubjects(user);
-  const { allLessons, loading: lessonsLoading, error: lessonsError, success, handleCreateLesson, handleDeleteLesson } = useInstructorLessons(selectedSubject);
+  const { allLessons, loading: lessonsLoading, error: lessonsError, success, handleCreateLesson, handleUpdateLesson, handleDeleteLesson, fetchLessons } = useInstructorLessons(selectedSubject);
   const {
     formData,
     setFormData,
@@ -52,6 +53,7 @@ const LearningContentManagement = () => {
     showCreateModal,
     setShowCreateModal,
     editMode,
+    editingLesson,
     createStep,
     setCreateStep,
     handleNext,
@@ -98,6 +100,20 @@ const LearningContentManagement = () => {
     }
   }, [subjects, selectedSubject]);
 
+  // Update formData subject when selectedSubject changes
+  useEffect(() => {
+    if (selectedSubject) {
+      setFormData(prev => ({ ...prev, subject: selectedSubject }));
+    }
+  }, [selectedSubject, setFormData]);
+
+  // Fetch lessons when selectedSubject changes
+  useEffect(() => {
+    if (selectedSubject) {
+      fetchLessons();
+    }
+  }, [selectedSubject, fetchLessons]);
+
 
   const lessons = allLessons;
   const uniqueModules = ['all', ...new Set(lessons.map(lesson => lesson.module))];
@@ -114,6 +130,15 @@ const LearningContentManagement = () => {
 
   const setError = () => {}; // Placeholder since we don't need to set error manually
   const setSuccess = () => {}; // Placeholder since we don't need to set success manually
+
+  const handleCreateLessonSubmit = async (lessonData) => {
+    if (editMode && editingLesson) {
+      await handleUpdateLesson(editingLesson._id, lessonData);
+    } else {
+      await handleCreateLesson(lessonData);
+    }
+    handleCancel();
+  };
 
   return (
     <div>
@@ -232,7 +257,7 @@ const LearningContentManagement = () => {
               isDark={isDark}
               onViewMetrics={(lesson) => navigate(`/instructor/learning/metrics/${lesson._id}`)}
               onEdit={handleEdit}
-              onDelete={handleDeleteLesson}
+              onDelete={(lesson) => handleDeleteLesson(lesson._id)}
               showOrderColumn={true}
             />
 
@@ -291,7 +316,7 @@ const LearningContentManagement = () => {
             onDownloadTemplate={handleDownloadTemplate}
             onBulkCsvAdd={handleBulkCsvAdd}
             onBack={() => setCreateStep(1)}
-            onCreateLesson={handleCreateLesson}
+            onCreateLesson={handleCreateLessonSubmit}
             canProceedToStep2={canProceedToStep2}
           />
 

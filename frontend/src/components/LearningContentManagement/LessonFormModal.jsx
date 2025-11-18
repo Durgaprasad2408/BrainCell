@@ -55,7 +55,7 @@ const LessonFormModal = ({
       const numericValue = value.replace(/\D/g, '');
       setFormData(prev => ({
         ...prev,
-        [name]: numericValue ? `${numericValue} min` : ''
+        [name]: numericValue ? parseInt(numericValue) : ''
       }));
     } else {
       setFormData(prev => ({
@@ -277,7 +277,16 @@ const LessonFormModal = ({
               </button>
               <button
                 type="button"
-                onClick={onCreateLesson}
+                onClick={() => onCreateLesson({
+                  title: formData.title,
+                  subject: formData.subject,
+                  module: formData.module,
+                  type: formData.type,
+                  duration: formData.duration,
+                  contentCards,
+                  quizQuestions,
+                  videoData
+                })}
                 disabled={!canProceedToStep2()}
                 className={`flex-1 px-6 py-3 rounded-lg font-medium transition-all ${
                   canProceedToStep2()
