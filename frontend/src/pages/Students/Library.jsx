@@ -33,7 +33,7 @@ const Library = () => {
     try {
       let subCategory;
       if (activeTab === 'pdf-notes') subCategory = 'notes';
-      else if (activeTab === 'gate-papers') subCategory = 'gate-papers';
+      else if (activeTab === 'computative') subCategory = 'computative';
       else if (activeTab === 'videos') subCategory = 'videos,external-links';
 
       const response = await getPublishedResources({ subCategory, search: searchQuery });
@@ -80,7 +80,7 @@ const Library = () => {
         await downloadFile(response.data.url, resource.title);
       } else {
         const engagementType =
-          resource.subCategory === 'gate-papers' || resource.type === 'pdf' || resource.subCategory === 'notes'
+          resource.subCategory === 'computative' || resource.type === 'pdf' || resource.subCategory === 'notes'
             ? 'download'
             : 'click';
         await incrementEngagement(resource._id, engagementType);
@@ -94,7 +94,7 @@ const Library = () => {
 
   const tabs = [
     { id: 'pdf-notes', label: 'PDF Notes', icon: FileText },
-    { id: 'gate-papers', label: 'GATE Papers', icon: BookOpen },
+    { id: 'computative', label: 'Computative', icon: BookOpen },
     { id: 'videos', label: 'Videos', icon: Video }
   ];
 
@@ -209,9 +209,9 @@ const Library = () => {
     );
   };
 
-  // GATE Papers Tab
-  const renderGatePapers = () => {
-    const gateResources = resources.filter(r => r.subCategory === 'gate-papers');
+  // Computative Tab
+    const renderComputative = () => {
+    const gateResources = resources.filter(r => r.subCategory === 'computative');
     const filteredLinks = gateResources.filter(link =>
       searchQuery === '' || 
       link.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -235,7 +235,7 @@ const Library = () => {
         <div className="text-center py-12">
           <BookOpen className="w-16 h-16 text-gray-400 mx-auto mb-4" />
           <p className={`text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-            No GATE papers available
+            No Computative available
           </p>
         </div>
       );
@@ -488,7 +488,7 @@ const Library = () => {
         type="text"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        placeholder={`Search ${activeTab === 'pdf-notes' ? 'notes' : activeTab === 'gate-papers' ? 'GATE papers' : 'videos'}...`}
+        placeholder={`Search ${activeTab === 'pdf-notes' ? 'notes' : activeTab === 'computative' ? 'Computative' : 'videos'}...`}
         className={`flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
           isDark
             ? 'border-gray-600 bg-gray-700 text-white'
@@ -556,7 +556,7 @@ const Library = () => {
           {/* Tab Content */}
           <div className="animate-fade-in">
             {activeTab === 'pdf-notes' && renderPDFNotes()}
-            {activeTab === 'gate-papers' && renderGatePapers()}
+            {activeTab === 'computative' && renderComputative()}
             {activeTab === 'videos' && renderVideos()}
           </div>
         </div>

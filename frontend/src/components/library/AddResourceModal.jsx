@@ -78,8 +78,8 @@ const AddResourceModal = ({
                   : 'bg-white border-gray-300 text-gray-900'
               } focus:outline-none focus:ring-2 focus:ring-blue-500`}
             >
-              <option value="notes">PDF Notes</option>
-              <option value="gate-papers">GATE Papers</option>
+              <option value="notes">Notes</option>
+              <option value="computative">Computative</option>
               <option value="videos">Video</option>
               <option value="external-links">External Link</option>
             </select>
@@ -87,7 +87,7 @@ const AddResourceModal = ({
 
           <div>
             <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-              Subject
+              Subject - Topic
             </label>
             <input
               type="text"
@@ -131,7 +131,7 @@ const AddResourceModal = ({
               <input
                 type="file"
                 onChange={onFileChange}
-                accept={formData.subCategory === 'notes' || formData.subCategory === 'gate-papers' ? '.pdf' : 'video/*'}
+                accept={formData.subCategory === 'notes' || formData.subCategory === 'computative' ? '.pdf' : 'video/*'}
                 required
                 className={`w-full px-4 py-2 rounded-lg border ${
                   isDark
@@ -147,24 +147,6 @@ const AddResourceModal = ({
             </div>
           )}
 
-          <div>
-            <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-              Status
-            </label>
-            <select
-              name="status"
-              value={formData.status}
-              onChange={onInputChange}
-              className={`w-full px-4 py-2 rounded-lg border ${
-                isDark
-                  ? 'bg-gray-700 border-gray-600 text-white'
-                  : 'bg-white border-gray-300 text-gray-900'
-              } focus:outline-none focus:ring-2 focus:ring-blue-500`}
-            >
-              <option value="Published">Published</option>
-              <option value="Draft">Draft</option>
-            </select>
-          </div>
 
           <div className="flex gap-3 pt-4">
             <button

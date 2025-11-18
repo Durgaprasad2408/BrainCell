@@ -177,15 +177,6 @@ const InstructorDashboard = () => {
     }
   ];
 
-  const getColorClasses = (color) => {
-    const colors = {
-      blue: isDark ? 'bg-blue-900/30 text-blue-400' : 'bg-blue-50 text-blue-600',
-      green: isDark ? 'bg-green-900/30 text-green-400' : 'bg-green-50 text-green-600',
-      yellow: isDark ? 'bg-yellow-900/30 text-yellow-400' : 'bg-yellow-50 text-yellow-600',
-      purple: isDark ? 'bg-purple-900/30 text-purple-400' : 'bg-purple-50 text-purple-600',
-    };
-    return colors[color] || colors.blue;
-  };
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -221,7 +212,7 @@ const InstructorDashboard = () => {
   }
 
   return (
-    <div className={`min-h-screen ${isDark ? 'bg-gray-900' : 'bg-gray-50'} pt-20 pb-10 px-4 sm:px-6 lg:px-8 transition-colors duration-300`}>
+    <div className={`min-h-screen ${isDark ? 'bg-gray-900' : 'bg-gray-50'} pt-4 pb-10 px-4 sm:px-6 lg:px-8 transition-colors duration-300`}>
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
           <h1 className={`text-3xl font-extrabold tracking-tight ${isDark ? 'text-white' : 'text-gray-900'}`}>
@@ -243,17 +234,15 @@ const InstructorDashboard = () => {
                   isDark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
                 } rounded-xl p-6 border shadow-sm hover:shadow-md transition-all`}
               >
-                <div className="flex items-center justify-between mb-4">
-                  <div className={`p-3 rounded-lg ${getColorClasses(stat.color)}`}>
-                    <Icon className="w-6 h-6" />
+                <div className="flex items-center gap-3">
+                  <Icon className={`w-8 h-8 text-${stat.color}-500`} />
+                  <div>
+                    <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{stat.label}</p>
+                    <p className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                      {loading ? <Loader className="w-6 h-6 animate-spin" /> : stat.value}
+                    </p>
                   </div>
                 </div>
-                <h3 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'} mb-1`}>
-                  {loading ? <Loader className="w-6 h-6 animate-spin" /> : stat.value}
-                </h3>
-                <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                  {stat.label}
-                </p>
               </div>
             );
           })}

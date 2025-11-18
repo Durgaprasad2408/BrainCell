@@ -5,9 +5,7 @@ import {
   getAllResources,
   deleteResource,
   getResourceStats,
-  incrementEngagement,
-  getDownloadUrl,
-  downloadFile
+  incrementEngagement
 } from '../../api/resourceService';
 import {
   LibraryHeader,
@@ -38,7 +36,6 @@ const LibraryManagement = () => {
     subCategory: 'notes',
     category: '',
     url: '',
-    status: 'Published',
     file: null
   });
 
@@ -95,7 +92,6 @@ const LibraryManagement = () => {
       data.append('type', formData.type);
       data.append('subCategory', formData.subCategory);
       data.append('category', formData.category);
-      data.append('status', formData.status);
 
       if (formData.type === 'link') {
         data.append('url', formData.url);
@@ -128,7 +124,6 @@ const LibraryManagement = () => {
       subCategory: 'notes',
       category: '',
       url: '',
-      status: 'Published',
       file: null
     });
   };
@@ -147,20 +142,6 @@ const LibraryManagement = () => {
     }
   };
 
-  const handleDownload = async (resource) => {
-    try {
-      if (resource.type === 'pdf') {
-        const response = await getDownloadUrl(resource._id);
-        await downloadFile(response.data.url, resource.title);
-      } else {
-        await incrementEngagement(resource._id, 'download');
-        window.open(resource.url, '_blank');
-      }
-    } catch (error) {
-      console.error('Error downloading resource:', error);
-      alert('Failed to download file. Please try again.');
-    }
-  };
 
   const handleView = async (resource) => {
     try {
@@ -198,7 +179,6 @@ const LibraryManagement = () => {
           loading={loading}
           isDark={isDark}
           onView={handleView}
-          onDownload={handleDownload}
           onDelete={handleDelete}
         />
       </div>

@@ -14,7 +14,7 @@ const resourceSchema = new mongoose.Schema({
   subCategory: {
     type: String,
     required: true,
-    enum: ['notes', 'gate-papers', 'videos', 'external-links'],
+    enum: ['notes', 'computative', 'videos', 'external-links'],
     trim: true
   },
   category: {
@@ -34,11 +34,6 @@ const resourceSchema = new mongoose.Schema({
   },
   duration: {
     type: String
-  },
-  status: {
-    type: String,
-    enum: ['Published', 'Draft'],
-    default: 'Published'
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,

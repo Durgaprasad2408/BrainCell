@@ -28,7 +28,7 @@ const uploadToCloudinary = (buffer, resourceType, folder, flags) => {
 
 export const createResource = async (req, res) => {
   try {
-    const { title, type, subCategory, category, url, status } = req.body;
+    const { title, type, subCategory, category, url } = req.body;
 
     if (!title || !category) {
       return res.status(400).json({
@@ -42,7 +42,6 @@ export const createResource = async (req, res) => {
       type,
       subCategory,
       category,
-      status: status || 'Published',
       createdBy: req.user._id
     };
 
@@ -147,7 +146,7 @@ export const getPublishedResources = async (req, res) => {
   try {
     const { subCategory, search } = req.query;
 
-    let query = { status: 'Published' };
+    let query = {};
 
     if (subCategory && subCategory !== 'all') {
       if (subCategory.includes(',')) {
@@ -184,7 +183,7 @@ export const getPublishedResources = async (req, res) => {
 
 export const updateResource = async (req, res) => {
   try {
-    const { title, category, status } = req.body;
+    const { title, category } = req.body;
 
     const resource = await Resource.findById(req.params.id);
 
@@ -197,7 +196,6 @@ export const updateResource = async (req, res) => {
 
     if (title) resource.title = title;
     if (category) resource.category = category;
-    if (status) resource.status = status;
 
     await resource.save();
 
@@ -365,8 +363,6 @@ export const getInstructorResourceStats = async (req, res) => {
     const { period = 'all' } = req.query;
 
     const totalResources = await Resource.countDocuments({ createdBy: instructorId });
-    const publishedResources = await Resource.countDocuments({ createdBy: instructorId, status: 'Published' });
-    const draftResources = await Resource.countDocuments({ createdBy: instructorId, status: 'Draft' });
 
     // Calculate date range based on period
     let startDate;
@@ -413,8 +409,6 @@ export const getInstructorResourceStats = async (req, res) => {
       success: true,
       data: {
         totalResources,
-        publishedResources,
-        draftResources,
         resourceChart: {
           labels: chartLabels,
           data: chartData

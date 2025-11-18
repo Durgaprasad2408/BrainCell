@@ -7,7 +7,6 @@ const LibraryTable = ({
   loading,
   isDark,
   onView,
-  onDownload,
   onDelete
 }) => {
   const getTypeIcon = (type) => {
@@ -22,10 +21,6 @@ const LibraryTable = ({
     return isDark ? 'bg-green-900/30 text-green-400' : 'bg-green-100 text-green-800';
   };
 
-  const getStatusColor = (status) => {
-    if (status === 'Published') return isDark ? 'bg-green-900/30 text-green-400' : 'bg-green-100 text-green-800';
-    return isDark ? 'bg-gray-700 text-gray-400' : 'bg-gray-200 text-gray-700';
-  };
 
   return (
     <div className="overflow-x-auto">
@@ -51,9 +46,6 @@ const LibraryTable = ({
               </th>
               <th className={`px-6 py-4 text-left text-xs font-semibold ${isDark ? 'text-gray-300' : 'text-gray-700'} uppercase tracking-wider`}>
                 Engagement
-              </th>
-              <th className={`px-6 py-4 text-left text-xs font-semibold ${isDark ? 'text-gray-300' : 'text-gray-700'} uppercase tracking-wider`}>
-                Status
               </th>
               <th className={`px-6 py-4 text-left text-xs font-semibold ${isDark ? 'text-gray-300' : 'text-gray-700'} uppercase tracking-wider`}>
                 Actions
@@ -97,15 +89,9 @@ const LibraryTable = ({
                     {resource.type === 'link' && `${resource.clicks} clicks`}
                   </td>
                   <td className="px-6 py-4">
-                    <span className={`px-3 py-1 text-xs font-medium rounded-full ${getStatusColor(resource.status)}`}>
-                      {resource.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
                     <ResourceActions
                       resource={resource}
                       onView={onView}
-                      onDownload={onDownload}
                       onDelete={onDelete}
                       isDark={isDark}
                     />
