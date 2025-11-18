@@ -35,7 +35,9 @@ export const createSubject = async (subjectData) => {
   try {
     const headers = { ...getAuthHeader() };
     if (subjectData instanceof FormData) {
-      headers['Content-Type'] = 'multipart/form-data';
+      // Let axios set the content-type for FormData
+    } else {
+      headers['Content-Type'] = 'application/json';
     }
     const response = await axios.post(`${API_URL}/subjects`, subjectData, {
       headers
@@ -51,7 +53,9 @@ export const updateSubject = async (id, subjectData) => {
   try {
     const headers = { ...getAuthHeader() };
     if (subjectData instanceof FormData) {
-      headers['Content-Type'] = 'multipart/form-data';
+      // Let axios set the content-type for FormData
+    } else {
+      headers['Content-Type'] = 'application/json';
     }
     const response = await axios.put(`${API_URL}/subjects/${id}`, subjectData, {
       headers
